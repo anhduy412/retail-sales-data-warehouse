@@ -19,7 +19,7 @@ cursor = conn.cursor()
 #Create Shipment Table 
 cursor.execute('''
                 CREATE TABLE dim.shipment(
-                    Shipment ID INT IDENTITY(1,1) PRIMARY KEY,
+                    Shipment Id INT IDENTITY(1,1) PRIMARY KEY,
                     Days for shipment (scheduled) INT,
                     Days for shipping (real) INT,
                     Delivery status NVARCHAR(50),

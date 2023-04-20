@@ -18,8 +18,8 @@ cursor = conn.cursor()
 
 #Create Shipment Table 
 cursor.execute('''
-                CREATE TABLE dim.shipment(
-                    Shipment ID INT IDENTITY(1,1) PRIMARY KEY,
+                CREATE TABLE dim.customer(
+                    Id PRIMARY KEY,
                     Days for shipment (scheduled) INT,
                     Days for shipping (real) INT,
                     Delivery status NVARCHAR(50),
@@ -32,7 +32,7 @@ cursor.execute('''
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute('''
-                    INSERT INTO RetailSales.dim.shipment (
+                    INSERT INTO RetailSales.dim.customer(
                         Days for shipment (scheduled),
                         Days for shipping (real),
                         Delivery status,

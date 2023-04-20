@@ -13,40 +13,42 @@ database = config.database
 username = config.username
 password = config.password
 
-conn = pyodbc.connect('DRIVER = ' + drivers + '; SERVER = tcp:' + server + '; PORT=1436; DATABASE=' + database + '; UID = ' + username +'; PWD = '+ password + '; TrustServerCertificate = Yes;')
+conn = pyodbc.connect('DRIVER = ' + drivers + '; SERVER = tcp:' + server + '; PORT=1436; DATABASE=' + database + '; UId = ' + username +'; PWD = '+ password + '; TrustServerCertificate = Yes;')
 cursor = conn.cursor()
 
-#Create Shipment Table 
+#Create Product table
 cursor.execute('''
-                CREATE TABLE dim.shipment(
-                    Shipment ID INT IDENTITY(1,1) PRIMARY KEY,
-                    Days for shipment (scheduled) INT,
-                    Days for shipping (real) INT,
-                    Delivery status NVARCHAR(50),
-                    Late delivery risk BIT,
-                    Shipping date (DateOrders) DATE,
-                    ShippingMode NVARCHAR(50),
-                    '''
-                )
+                CREATE TABLE dim.product(
+                    Product Card Id INT PRIMARY KEY,
+                    Product Category Id INT FOREIGN KEY REFERENCES dim.(),
+                    Product Description NVARCHAR(100),
+                    Product Image NVARCHAR(100),
+                    Product Name NVARCHAR(50),
+                    Product Price FLOAT,
+                    Product Status BIT,
+                    ''')
 
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute('''
-                    INSERT INTO RetailSales.dim.shipment (
-                        Days for shipment (scheduled),
-                        Days for shipping (real),
-                        Delivery status,
-                        Late delivery risk,
-                        Shipping date,
-                        ShippingMode
+                    INSERT INTO RetailSales.dim.(
+                        Product Card Id,
+                        Product Card Id,
+                        Product Category Id,
+                        Product Description,
+                        Product Image,
+                        Product Name,
+                        Product Price,
+                        Product Status,
                     ) VALUES (?,?,?,?,?,?,?)
                     )''', 
-                    row.days_for_shipment_scheduled, 
-                    row.days_for_shipping_real, 
-                    row.delivery_status, 
-                    row.late_delivery_risk,
-                    row.shipping_date, 
-                    row.shipping_mode, 
-                )
+                    row.product_card_id,
+                    row.product_category_id,
+                    row.product_description,
+                    row.product_image,
+                    row.product_name,
+                    row.product_price,
+                    row.product_status,
+    )
 conn.commit()
 cursor.close()
