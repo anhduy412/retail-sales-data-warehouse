@@ -1,159 +1,48 @@
 import pandas as pd
-import pyodbc as po
+import pyodbc
 import config
 
-#Import the CSV File into a DataFrame
-data = pd.read_csv('data/DataCoSupplyChainDataset.csv', encoding = 'latin-1')
-df = pd.DataFrame(data)
-print(df.info)
+#Import dataframe
+df = config.df
 
 #Connect Python to SQL Server
-driver = config.driver
+drivers = config.drivers
 server = config.server
 database = config.database
 username = config.username
 password = config.password
-
-conn = po.connect(
-    f'DRIVER={driver}; SERVER=tcp:{server}; PORT=; DATABASE={database};UID={username}; PWD={password}; TrustServerCertificate=Yes;'
-)
+ 
+conn = pyodbc.connect('DRIVER = ' + drivers + '; SERVER = tcp:' + server + '; PORT=1436; DATABASE=' + database + '; UID=' + username +'; PWD='+ password + '; TrustServerCertificate=Yes;')
 
 cursor = conn.cursor()
 
-# Create Customer Table
+#Create Table
 cursor.execute('''
-		CREATE TABLE stg.CATEGORY (
-			customer_city NVARCHAR(50),
-			customer_country NVARCHAR(50),
-			customer_email NVARCHAR(50),
-			customer_fname NVARCHAR(50),
-			customer_id NVARCHAR(50),
-			customer_lname NVARCHAR(50),
-			customer_password NVARCHAR(50),
-			customer_segment NVARCHAR(50),
-			customer_state NVARCHAR(50),
-			customer_street NVARCHAR(50),
-			customer_zipcode NVARCHAR(50),
-			)
-    ''')
-
-# Insert DataFrame to Table
-for row in df.itertuples():
-    cursor.execute('''
-                INSERT INTO dw_retail_sales.stg.CATEGORY (customer_city, customer_country, customer_email, customer_fname, customer_id, ,customer_lname,customer_password,customer_segment,customer_state, customer_street, customer_zipcode)
-                VALUES (?,?)
-                ''',
-                row.Customer City,
-                row.Customer Country,
-                row.Customer Email,
-                row.Customer Fname,
-                row.Customer Id,
-                row.Customer Lname,
-                row.Customer Password,
-                row.Customer Segment,
-                row.Customer State,
-                row.Customer Street,
-                row.customer Zipcode,
-                )
-conn.commit()
-conn.close()
-
-# Create Table
-cursor.execute('''
-		CREATE TABLE stg.CATEGORY (
-			product_category_name NVARCHAR(50),
-			product_category_name_english NVARCHAR(50)
+		CREATE TABLE stg.ITEM (
+			order_id NVARCHAR(40) ,
+			item_id int,
+			product_id nvarchar(40) ,
+			seller_id nvarchar(40),
+			shipping_limit_date datetime,
+			price float,
+			freight_value float
 			)
                ''')
 
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute('''
-                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
-                VALUES (?,?)
+                INSERT INTO dw_retail_sales.stg.ITEM (order_id, item_id, product_id,
+       seller_id, shipping_limit_date, price, freight_value)
+                VALUES (?,?,?,?,?,?,?)
                 ''',
-                row.product_category_name,
-                row.product_category_name_english
+                row.order_id,
+                row.order_item_id,
+                row.product_id,
+                row.seller_id,
+                row.shipping_limit_date,
+                row.price,
+                row.freight_value
                 )
 conn.commit()
-conn.close()
-
-# Create Table
-cursor.execute('''
-		CREATE TABLE stg.CATEGORY (
-			product_category_name NVARCHAR(50),
-			product_category_name_english NVARCHAR(50)
-			)
-               ''')
-
-# Insert DataFrame to Table
-for row in df.itertuples():
-    cursor.execute('''
-                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
-                VALUES (?,?)
-                ''',
-                row.product_category_name,
-                row.product_category_name_english
-                )
-conn.commit()
-conn.close()
-
-# Create Table
-cursor.execute('''
-		CREATE TABLE stg.CATEGORY (
-			product_category_name NVARCHAR(50),
-			product_category_name_english NVARCHAR(50)
-			)
-               ''')
-
-# Insert DataFrame to Table
-for row in df.itertuples():
-    cursor.execute('''
-                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
-                VALUES (?,?)
-                ''',
-                row.product_category_name,
-                row.product_category_name_english
-                )
-conn.commit()
-conn.close()
-
-# Create Table
-cursor.execute('''
-		CREATE TABLE stg.CATEGORY (
-			product_category_name NVARCHAR(50),
-			product_category_name_english NVARCHAR(50)
-			)
-               ''')
-
-# Insert DataFrame to Table
-for row in df.itertuples():
-    cursor.execute('''
-                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
-                VALUES (?,?)
-                ''',
-                row.product_category_name,
-                row.product_category_name_english
-                )
-conn.commit()
-conn.close()
-
-# Create Table
-cursor.execute('''
-		CREATE TABLE stg.CATEGORY (
-			product_category_name NVARCHAR(50),
-			product_category_name_english NVARCHAR(50)
-			)
-               ''')
-
-# Insert DataFrame to Table
-for row in df.itertuples():
-    cursor.execute('''
-                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
-                VALUES (?,?)
-                ''',
-                row.product_category_name,
-                row.product_category_name_english
-                )
-conn.commit()
-conn.close()
+cursor.close()
