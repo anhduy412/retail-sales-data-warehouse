@@ -9,7 +9,7 @@ df.columns = [x.lower().replace(' ', '_').replace('(', '').replace(')', '') for 
 print(df.info)
 
 #check the pyodbc drivers
-print(pyodbc.drivers())
+# print(pyodbc.drivers())
 
 #some required variables for SQL connection
 drivers = '{ODBC Driver 17 for SQL Server}'
