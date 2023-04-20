@@ -1,51 +1,159 @@
 import pandas as pd
-import requests
+import pyodbc as po
 import config
 
-#Extract
-api_key = config.api_key
-url = f'https://api.nytimes.com/svc/search/v2/articlesearch.json?q=coronavirus&api-key={api_key}'
-r  = requests.get(url)
+#Import the CSV File into a DataFrame
+data = pd.read_csv('data/DataCoSupplyChainDataset.csv', encoding = 'latin-1')
+df = pd.DataFrame(data)
+print(df.info)
 
-response_list = []
+#Connect Python to SQL Server
+driver = config.driver
+server = config.server
+database = config.database
+username = config.username
+password = config.password
 
-api_key = config.api_key
+conn = po.connect(
+    f'DRIVER={driver}; SERVER=tcp:{server}; PORT=; DATABASE={database};UID={username}; PWD={password}; TrustServerCertificate=Yes;'
+)
 
-for movie_id in range(550, 560):
-    url = f'https://api.themoviedb.org/3/movie/{movie_id}?api_key={api_key}'
-    r = requests.get(url)
-    response_list.append(r.json())
+cursor = conn.cursor()
 
-df = pd.DataFrame.from_dict(response_list)
+# Create Customer Table
+cursor.execute('''
+		CREATE TABLE stg.CATEGORY (
+			customer_city NVARCHAR(50),
+			customer_country NVARCHAR(50),
+			customer_email NVARCHAR(50),
+			customer_fname NVARCHAR(50),
+			customer_id NVARCHAR(50),
+			customer_lname NVARCHAR(50),
+			customer_password NVARCHAR(50),
+			customer_segment NVARCHAR(50),
+			customer_state NVARCHAR(50),
+			customer_street NVARCHAR(50),
+			customer_zipcode NVARCHAR(50),
+			)
+    ''')
 
-#Transform
-df_columns = ['budget', 'genre', 'id', 'imdb_id' , 'original_title', 'release_date', 'revenue', 'runtime', 'title', 'vote_average', 'vote_count']
+# Insert DataFrame to Table
+for row in df.itertuples():
+    cursor.execute('''
+                INSERT INTO dw_retail_sales.stg.CATEGORY (customer_city, customer_country, customer_email, customer_fname, customer_id, ,customer_lname,customer_password,customer_segment,customer_state, customer_street, customer_zipcode)
+                VALUES (?,?)
+                ''',
+                row.Customer City,
+                row.Customer Country,
+                row.Customer Email,
+                row.Customer Fname,
+                row.Customer Id,
+                row.Customer Lname,
+                row.Customer Password,
+                row.Customer Segment,
+                row.Customer State,
+                row.Customer Street,
+                row.customer Zipcode,
+                )
+conn.commit()
+conn.close()
 
-genre_list = df['genres'].tolist()
-flat_list = [item for sublist in genre_list for item in sublist]
+# Create Table
+cursor.execute('''
+		CREATE TABLE stg.CATEGORY (
+			product_category_name NVARCHAR(50),
+			product_category_name_english NVARCHAR(50)
+			)
+               ''')
 
-result = []
-for l in genre_list:
-    r = [d['name'] for d in l]
-    result.append(r)
-df = df.assign(genre_all = result)
-df_genre = pd.DataFrame.from_records(flat_list).drop_duplicates()
+# Insert DataFrame to Table
+for row in df.itertuples():
+    cursor.execute('''
+                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
+                VALUES (?,?)
+                ''',
+                row.product_category_name,
+                row.product_category_name_english
+                )
+conn.commit()
+conn.close()
 
-df_columns = ['budget', 'id', 'imdb_id' , 'original_title', 'release_date', 'revenue', 'runtime', 'title', 'vote_average', 'vote_count']
-df_genre_columns = df_genre['name'].tolist()
-df_columns.extend(df_genre_columns)
+# Create Table
+cursor.execute('''
+		CREATE TABLE stg.CATEGORY (
+			product_category_name NVARCHAR(50),
+			product_category_name_english NVARCHAR(50)
+			)
+               ''')
 
-s = df['genre_all'].explode()
-df = df.join(pd.crosstab(s.index, s))
+# Insert DataFrame to Table
+for row in df.itertuples():
+    cursor.execute('''
+                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
+                VALUES (?,?)
+                ''',
+                row.product_category_name,
+                row.product_category_name_english
+                )
+conn.commit()
+conn.close()
 
-df['release_date'] = pd.to_datetime(df['release_date'])
-df['day'] = df['release_date'].dt.day
-df['month'] = df['release_date'].dt.month
-df['year'] = df['release_date'].dt.year
-df['day_of_week'] = df['release_date'].dt.day_name()
-df_time_columns = ['id', 'release_date', 'day', 'month', 'year', 'day_of_week']
+# Create Table
+cursor.execute('''
+		CREATE TABLE stg.CATEGORY (
+			product_category_name NVARCHAR(50),
+			product_category_name_english NVARCHAR(50)
+			)
+               ''')
 
-#load
-df[df_columns].to_csv('tmdb_movies.csv', index=False)
-df_genre.to_csv('tmdb_genres.csv', index=False)
-df[df_time_columns].to_csv('tmdb_datetimes.csv', index=False)
+# Insert DataFrame to Table
+for row in df.itertuples():
+    cursor.execute('''
+                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
+                VALUES (?,?)
+                ''',
+                row.product_category_name,
+                row.product_category_name_english
+                )
+conn.commit()
+conn.close()
+
+# Create Table
+cursor.execute('''
+		CREATE TABLE stg.CATEGORY (
+			product_category_name NVARCHAR(50),
+			product_category_name_english NVARCHAR(50)
+			)
+               ''')
+
+# Insert DataFrame to Table
+for row in df.itertuples():
+    cursor.execute('''
+                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
+                VALUES (?,?)
+                ''',
+                row.product_category_name,
+                row.product_category_name_english
+                )
+conn.commit()
+conn.close()
+
+# Create Table
+cursor.execute('''
+		CREATE TABLE stg.CATEGORY (
+			product_category_name NVARCHAR(50),
+			product_category_name_english NVARCHAR(50)
+			)
+               ''')
+
+# Insert DataFrame to Table
+for row in df.itertuples():
+    cursor.execute('''
+                INSERT INTO dw_retail_sales.stg.CATEGORY (product_category_name, product_category_name_english)
+                VALUES (?,?)
+                ''',
+                row.product_category_name,
+                row.product_category_name_english
+                )
+conn.commit()
+conn.close()
