@@ -23,8 +23,8 @@ cursor.execute('''
                     Department Name NVARCHAR(50),
                     Latitude FLOAT,
                     Longitude FLOAT,
-                    '''
-                )
+                )'''
+)
 
 # Insert DataFrame to Table
 for row in df.itertuples():
@@ -39,7 +39,7 @@ for row in df.itertuples():
                     row.department_id, 
                     row.department_name,
                     row.latitude, 
-                    row.longtitude, 
-                )
+                    row.longtitude,
+    )
 conn.commit()
 cursor.close()

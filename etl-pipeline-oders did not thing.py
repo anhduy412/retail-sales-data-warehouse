@@ -26,8 +26,8 @@ cursor.execute('''
                     Late delivery risk BIT,
                     Shipping date (DateOrders) DATE,
                     ShippingMode NVARCHAR(50),
-                    '''
-                )
+                )'''
+)
 
 # Insert DataFrame to Table
 for row in df.itertuples():

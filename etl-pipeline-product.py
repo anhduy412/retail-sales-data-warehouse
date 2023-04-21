@@ -26,7 +26,8 @@ cursor.execute('''
                     Product Name NVARCHAR(50),
                     Product Price FLOAT,
                     Product Status BIT,
-                    ''')
+                )'''
+)
 
 # Insert DataFrame to Table
 for row in df.itertuples():

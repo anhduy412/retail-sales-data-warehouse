@@ -21,8 +21,8 @@ cursor.execute('''
                 CREATE TABLE dim.category(
                     Category Id INT,
                     Category Name NVARCHAR(50),
-                    '''
-                )
+                )'''
+)
 
 # Insert DataFrame to Table
 for row in df.itertuples():
@@ -34,6 +34,6 @@ for row in df.itertuples():
                     )''', 
                     row.category_id,
                     row.category_name
-                )
+    )
 conn.commit()
 cursor.close()

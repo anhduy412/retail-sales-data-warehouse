@@ -26,8 +26,8 @@ cursor.execute('''
                     Late delivery risk BIT,
                     Shipping date (DateOrders) DATE,
                     ShippingMode NVARCHAR(50),
-                    '''
-                )
+                )'''
+)
 
 # Insert DataFrame to Table
 for row in df.itertuples():
@@ -39,7 +39,7 @@ for row in df.itertuples():
                         Late delivery risk,
                         Shipping date,
                         ShippingMode
-                    ) VALUES (?,?,?,?,?,?,?)
+                    ) VALUES (?,?,?,?,?,?,?,?,?,?)
                     )''', 
                     row.customer_id,
                     row.customer_city,
@@ -52,6 +52,6 @@ for row in df.itertuples():
                     row.customer_state,
                     row.customer_street,
                     row.customer_zipcode,
-                )
+    )
 conn.commit()
 cursor.close()
