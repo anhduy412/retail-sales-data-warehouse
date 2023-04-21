@@ -8,19 +8,19 @@ df = config.df
 print(df)
 
 #Connect Python to SQL Server
-drivers = config.drivers
 server = config.server
 database = config.database
 username = config.username
 password = config.password
 
-conn = pyodbc.connect('DRIVER = ' + drivers + '; SERVER = tcp:' + server + '; PORT=1436; DATABASE=' + database + '; UID = ' + username +'; PWD = '+ password + '; TrustServerCertificate = Yes;')
+conn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server}; SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD='+ password+';Trusted_Connection=yes;')
 cursor = conn.cursor()
 
 #Create Orders table 
 cursor.execute('''
                 CREATE TABLE dim.orders(
-                    Id INT PRIMARY KEY,
+                    Market NVARCHAR(50),
+                    Order City NVARCHAR(50),
                 )'''
 )
 
@@ -31,7 +31,7 @@ for row in df.itertuples():
                         
                     ) VALUES (?,)qweqe
                     )''', 
-                    row.Id,
+                    row.market,
                 )
 conn.commit()
 cursor.close()
