@@ -19,13 +19,17 @@ cursor = conn.cursor()
 #Create Shipment Table 
 cursor.execute('''
                 CREATE TABLE dim.customer(
-                    Id PRIMARY KEY,
-                    Days for shipment (scheduled) INT,
-                    Days for shipping (real) INT,
-                    Delivery status NVARCHAR(50),
-                    Late delivery risk BIT,
-                    Shipping date (DateOrders) DATE,
-                    ShippingMode NVARCHAR(50),
+                    Customer Id INT PRIMARY KEY,
+                    Customer City NVARCHAR(50),
+                    Customer Country NVARCHAR(50),
+                    Customer Fname NVARCHAR(50),
+                    Customer Lname NVARCHAR(50),
+                    Customer Segment NVARCHAR(50),
+                    Customer State NVARCHAR(50),
+                    Customer Street NVARCHAR(50),
+                    Customer Zipcode INT,
+                    Customer Email NVARCHAR(50),
+                    Customer Password NVARCHAR(50),
                 )'''
 )
 
@@ -33,25 +37,20 @@ cursor.execute('''
 for row in df.itertuples():
     cursor.execute('''
                     INSERT INTO RetailSales.dim.customer(
-                        Days for shipment (scheduled),
-                        Days for shipping (real),
-                        Delivery status,
-                        Late delivery risk,
-                        Shipping date,
-                        ShippingMode
-                    ) VALUES (?,?,?,?,?,?,?,?,?,?)
+                        
+                    ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     )''', 
                     row.customer_id,
                     row.customer_city,
                     row.customer_country,
-                    row.customer_email,
                     row.customer_fname,
                     row.customer_lname,
-                    row.customer_password,
                     row.customer_segment,
                     row.customer_state,
                     row.customer_street,
                     row.customer_zipcode,
+                    row.customer_email,
+                    row.customer_password,
     )
 conn.commit()
 cursor.close()
