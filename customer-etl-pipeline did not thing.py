@@ -41,12 +41,17 @@ for row in df.itertuples():
                         ShippingMode
                     ) VALUES (?,?,?,?,?,?,?)
                     )''', 
-                    row.days_for_shipment_scheduled, 
-                    row.days_for_shipping_real, 
-                    row.delivery_status, 
-                    row.late_delivery_risk,
-                    row.shipping_date, 
-                    row.shipping_mode, 
+                    row.customer_id,
+                    row.customer_city,
+                    row.customer_country,
+                    row.customer_email,
+                    row.customer_fname,
+                    row.customer_lname,
+                    row.customer_password,
+                    row.customer_segment,
+                    row.customer_state,
+                    row.customer_street,
+                    row.customer_zipcode,
                 )
 conn.commit()
 cursor.close()

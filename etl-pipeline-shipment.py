@@ -19,7 +19,7 @@ cursor = conn.cursor()
 #Create Shipment Table 
 cursor.execute('''
                 CREATE TABLE dim.shipment(
-                    Shipment ID INT IDENTITY(1,1) PRIMARY KEY,
+                    Shipment Id INT IDENTITY(1,1) PRIMARY KEY,
                     Days for shipment (scheduled) INT,
                     Days for shipping (real) INT,
                     Delivery status NVARCHAR(50),
@@ -27,12 +27,12 @@ cursor.execute('''
                     Shipping date (DateOrders) DATE,
                     ShippingMode NVARCHAR(50),
                     '''
-                )
+)
 
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute('''
-                    INSERT INTO RetailSales.dim.shipment (
+                    INSERT INTO RetailSales.dim.shipment(
                         Days for shipment (scheduled),
                         Days for shipping (real),
                         Delivery status,
@@ -40,13 +40,13 @@ for row in df.itertuples():
                         Shipping date,
                         ShippingMode
                     ) VALUES (?,?,?,?,?,?,?)
-                    )''', 
+            )''',
                     row.days_for_shipment_scheduled, 
                     row.days_for_shipping_real, 
                     row.delivery_status, 
                     row.late_delivery_risk,
                     row.shipping_date, 
                     row.shipping_mode, 
-                )
+    )
 conn.commit()
 cursor.close()
