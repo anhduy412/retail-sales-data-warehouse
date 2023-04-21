@@ -9,10 +9,9 @@ print(df)
 #Connect Python to SQL Server
 server = config.server
 database = config.database
-username = config.username
-password = config.password
 
-conn = pyodbc.connect('DRIVER={ODBC Driver 18 for SQL Server}; SERVER='+server+';DATABASE='+database+';ENCRYPT=yes;UID='+username+';PWD='+ password+';Trusted_Connection=yes;')
+
+conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+';DATABASE='+database+'; ENCRYPT=yes; Trusted_Connection=yes;')
 cursor = conn.cursor()
 
 #Create Shipment Table 
