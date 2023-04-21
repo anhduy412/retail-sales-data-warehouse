@@ -37,7 +37,17 @@ cursor.execute('''
 for row in df.itertuples():
     cursor.execute('''
                     INSERT INTO RetailSales.dim.customer(
-                        
+                        Customer Id,
+                        Customer City,
+                        Customer Country,
+                        Customer Fname,
+                        Customer Lname,
+                        Customer Segment,
+                        Customer State,
+                        Customer Street,
+                        Customer Zipcode,
+                        Customer Email,
+                        Customer Password,
                     ) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                     )''', 
                     row.customer_id,
