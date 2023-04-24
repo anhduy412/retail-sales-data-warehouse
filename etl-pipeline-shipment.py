@@ -10,14 +10,14 @@ print(df)
 server = config.server
 database = config.database
 
-
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+';DATABASE='+database+'; ENCRYPT=yes; Trusted_Connection=yes;')
 cursor = conn.cursor()
 
 #Create Shipment Table 
 cursor.execute('''
                 CREATE TABLE dim.shipment(
-                    Shipment Id INT IDENTITY(1,1) PRIMARY KEY,
+                    Shipment Key INT IDENTITY(1,1) PRIMARY KEY,
+                    Shipment Id INT IDENTITY(1,1) ,
                     Days for shipment (scheduled) INT,
                     Days for shipping (real) INT,
                     Delivery status NVARCHAR(50),

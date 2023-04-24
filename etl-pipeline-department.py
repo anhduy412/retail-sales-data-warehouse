@@ -16,6 +16,7 @@ cursor = conn.cursor()
 #Create Department table 
 cursor.execute('''
                 CREATE TABLE dim.department(
+                    Dept Key INT IDENTITY(1,1) PRIMARY KEY,
                     Department Id INT,
                     Department Name NVARCHAR(50),
                 )'''

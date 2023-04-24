@@ -17,8 +17,9 @@ cursor = conn.cursor()
 #Create Product table
 cursor.execute('''
                 CREATE TABLE dim.product(
-                    Product Card Id INT PRIMARY KEY,
-                    Product Category Id INT FOREIGN KEY REFERENCES dim.(),
+                    Product Key INT IDENTITY(1,1) PRIMARY KEY,
+                    Product Card Id INT,
+                    Product Category Id INT,
                     Product Description NVARCHAR(100),
                     Product Image NVARCHAR(100),
                     Product Name NVARCHAR(50),

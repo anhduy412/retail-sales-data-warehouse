@@ -10,13 +10,13 @@ print(df)
 server = config.server
 database = config.database
 
-
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+';DATABASE='+database+'; ENCRYPT=yes; Trusted_Connection=yes;')
 cursor = conn.cursor()
 
 #Create Category Table 
 cursor.execute('''
                 CREATE TABLE dim.category(
+                    Category Key INT IDENTITY(1,1) PRIMARY KEY,
                     Category Id INT,
                     Category Name NVARCHAR(50),
                 )'''

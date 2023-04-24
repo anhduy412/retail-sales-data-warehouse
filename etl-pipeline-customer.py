@@ -10,14 +10,14 @@ print(df)
 server = config.server
 database = config.database
 
-
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+';DATABASE='+database+'; ENCRYPT=yes; Trusted_Connection=yes;')
 cursor = conn.cursor()
 
-#Create Shipment Table 
+#Create Customer Table 
 cursor.execute('''
                 CREATE TABLE dim.customer(
-                    Customer Id INT PRIMARY KEY,
+                    Customer Key INT IDENTITY(1,1) PRIMARY KEY,
+                    Customer Id INT,
                     Customer City NVARCHAR(50),
                     Customer Country NVARCHAR(50),
                     Customer Fname NVARCHAR(50),
