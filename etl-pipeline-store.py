@@ -16,8 +16,11 @@ cursor = conn.cursor()
 #Create Department table 
 cursor.execute('''
                 CREATE TABLE dim.department(
+                    Shipment Id INT IDENTITY(1,1) PRIMARY KEY,
                     Department Id INT,
                     Department Name NVARCHAR(50),
+                    Latitude FLOAT,
+                    Longitude FLOAT,
                 )'''
 )
 
@@ -25,12 +28,12 @@ cursor.execute('''
 for row in df.itertuples():
     cursor.execute('''
                     INSERT INTO RetailSales.dim.department(
-                        Department Id,
-                        Department Name,
-                    ) VALUES (?,?)
-                    )''', 
-                    row.department_id, 
-                    row.department_name,
+                        Latitude,
+                        Longitude,
+                    ) VALUES (?,?,?,?)
+                    )''',
+                    row.latitude, 
+                    row.longtitude,
     )
 conn.commit()
 cursor.close()
