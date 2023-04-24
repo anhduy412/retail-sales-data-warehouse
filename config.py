@@ -1,6 +1,5 @@
-import os
-import pyodbc
 import pandas as pd
+import pyodbc
 
 #import csv file into dataframe and clean table and coulumn names (lowercase letters. remove spaces and special characters)
 data = pd.read_csv('data/DataCoSupplyChainDataset.csv', encoding = 'latin-1')

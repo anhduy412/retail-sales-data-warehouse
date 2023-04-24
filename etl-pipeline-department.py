@@ -1,10 +1,8 @@
-import pandas as pd
 import pyodbc
 import config
 
 #Import dataframe
 df = config.df
-print(df)
 
 #Connect Python to SQL Server
 server = config.server
