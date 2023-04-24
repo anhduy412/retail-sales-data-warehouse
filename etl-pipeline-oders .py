@@ -17,19 +17,19 @@ cursor = conn.cursor()
 #Create Orders table 
 cursor.execute('''
                 CREATE TABLE dim.orders(
-                    # Order Key INT IDENTITY(1,1) PRIMARY KEY,
-                    # Order Id INT,
-                    # Order Item Id INT,
-                    # Order Customer Id INT,
-                    # Order Item Cardprod Id INT,
-                    # Market NVARCHAR(50),
-                    # Order City NVARCHAR(50),
-                    # Order Country NVARCHAR(50),
-                    # Order Region NVARCHAR(50),
-                    # Order State NVARCHAR(50),
-                    # Order Zipcode INT,
-                    # Order Status BIT,
-                    # Order date (DateOrders) DATE,
+                    Order Key INT IDENTITY(1,1) PRIMARY KEY,
+                    Order Id INT,
+                    Order Item Id INT,
+                    Order Customer Id INT,
+                    Order Item Cardprod Id INT,
+                    Market NVARCHAR(50),
+                    Order City NVARCHAR(50),
+                    Order Country NVARCHAR(50),
+                    Order Region NVARCHAR(50),
+                    Order State NVARCHAR(50),
+                    Order Zipcode INT,
+                    Order Status BIT,
+                    Order date (DateOrders) DATE,
                 )'''
 )
 
