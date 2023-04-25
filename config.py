@@ -13,8 +13,8 @@ print(df.info)
 #some required variables for SQL connection
 database = 'RetailSales' #database name
 server = 'ROG' #server name
-username = 'sa' #username
-password = 'cNU2v7XDaECYHT' #password
+username = 'ad' #username
+password = 'b4cB4jDA9BPI6Bwg' #password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 
 # Some code to test connection
