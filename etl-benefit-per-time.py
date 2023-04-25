@@ -13,18 +13,13 @@ password = config.password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
 
-#Create Department table 
-cursor.execute("""CREATE TABLE department(
-    department_key INT IDENTITY(1,1) PRIMARY KEY, 
-    department_id INT,
-    department_name NVARCHAR(50)
-    )"""
-)
+#Create benefits_per_time table 
+cursor.execute("""CREATE TABLE benefits_per_time()""")
 
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[department] (department_id, department_name) VALUES ({row.department_id}, '{row.department_name}');"
+        f"INSERT INTO [dbo].[benefits_per_time] (latitude, longitude) VALUES ({row.int/float}, '{row.nvarchar}');"
     )
 conn.commit()
 cursor.close()
