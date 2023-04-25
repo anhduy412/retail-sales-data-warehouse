@@ -26,7 +26,17 @@ cursor.execute("""CREATE TABLE shipment(
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[shipment] (days_for_shipment_scheduled, days_for_shipping_real, shipping_date_dateorders, shipping_mode) VALUES ({row.days_for_shipment_scheduled}, {row.days_for_shipping_real}, {row.shipping_date_dateorders}, '{row.shipping_mode}');"
+        """INSERT INTO [dbo].[shipment](
+                days_for_shipment_scheduled,
+                days_for_shipping_real,
+                shipping_date_dateorders,
+                shipping_mode
+            ) VALUES (?, ?, ?, ?);
+        """, 
+        row.days_for_shipment_scheduled,
+        row.days_for_shipping_real,
+        row.shipping_date_dateorders,
+        row.shipping_mode
     )
 conn.commit()
 cursor.close()

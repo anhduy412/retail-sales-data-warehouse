@@ -14,12 +14,52 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create oders table 
-cursor.execute("""CREATE TABLE oders(order_key INT IDENTITY(1,1) PRIMARY KEY INT, order_id INT, order_item_id INT, order_customer_id INT, order_item_cardprod_id INT, market NVARCHAR(50), order_city NVARCHAR(50), order_state NVARCHAR(50), order_country NVARCHAR(50), order_region NVARCHAR(50), order_zipcode INT, order_date_dateorders NVARCHAR(500), order_status NVARCHAR(50),)""")
+cursor.execute("""CREATE TABLE oders(
+    order_key INT IDENTITY(1,1) PRIMARY KEY,
+    order_id INT,
+    order_item_id INT,
+    order_customer_id INT,
+    order_item_cardprod_id INT,
+    market NVARCHAR(50),
+    order_city NVARCHAR(50),
+    order_state NVARCHAR(50),
+    order_country NVARCHAR(50),
+    order_region NVARCHAR(50),
+    order_zipcode INT,
+    order_date_dateorders NVARCHAR(50), 
+    order_status NVARCHAR(50))
+    """
+)
 
 # Insert DataFrame to Table
 for row in df.itertuples():
-    cursor.execute(
-        f"INSERT INTO [dbo].[oders] (order_id, order_item_id, order_customer_id, order_item_cardprod_id, market, order_city, order_state, order_country, order_region, order_zipcode, order_date_dateorders, order_status) VALUES ({row.order_id}, {row.order_item_id}, {row.order_customer_id}, {row.order_item_cardprod_id}, '{row.market}', '{row.order_city}', '{row.order_state}', '{row.order_country}', '{row.order_region}', {row.order_zipcode}, {row.order_date_dateorders}, '{row.order_status}',);"
+    cursor.execute("""INSERT INTO [dbo].[oders](
+                order_id,
+                order_item_id,
+                order_customer_id,
+                order_item_cardprod_id,
+                market,
+                order_city,
+                order_state,
+                order_country,
+                order_region,
+                order_zipcode,
+                order_date_dateorders,
+                order_status,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+        """, 
+        row.order_id,
+        row.order_item_id,
+        row.order_customer_id,
+        row.order_item_cardprod_id,
+        row.market,
+        row.order_city,
+        row.order_state,
+        row.order_country,
+        row.order_region,
+        row.order_zipcode,
+        row.order_date_dateorders,
+        row.order_status,
     )
 conn.commit()
 cursor.close()

@@ -29,7 +29,23 @@ cursor.execute("""CREATE TABLE product(
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[product] (product_card_id, product_category_id, product_description, product_image, product_name, product_price, product_status) VALUES ({row.product_card_id}, {row.product_category_id}, {row.product_description}, '{row.product_description}', '{row.product_image}', '{row.product_name}', {row.product_price}, {row.product_status});"
+        """INSERT INTO [dbo].[product](
+            product_card_id,
+            product_category_id,
+            product_description,
+            product_image,
+            product_name,
+            product_price,
+            product_status,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?);
+        """, 
+        row.product_card_id,
+        row.product_category_id,
+        row.product_description,
+        row.product_image,
+        row.product_name,
+        row.product_price,
+        row.product_status,
     )
 conn.commit()
 cursor.close()
