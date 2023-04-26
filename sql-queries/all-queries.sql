@@ -1,6 +1,9 @@
--- SELECT * FROM [dbo].[department];
-
 SELECT * FROM [dbo].[category];
--- SELECT * FROM [dbo].[customer];
-
 SELECT * FROM [dbo].[customer];
+SELECT * FROM [dbo].[department];
+SELECT * FROM [dbo].[orders];
+SELECT * FROM [dbo].[product];
+SELECT * FROM [dbo].[shipment];
+SELECT * FROM [dbo].[store];
+SELECT * FROM [dbo].[date];
+SELECT * FROM [dbo].[benefit];
