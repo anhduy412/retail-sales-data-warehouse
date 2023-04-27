@@ -44,8 +44,7 @@ for row in df.itertuples():
                 order_date_dateorders,
                 order_region,
                 order_state,
-                order_status,
-                order_zipcode
+                order_status
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """, 
         row.order_id,

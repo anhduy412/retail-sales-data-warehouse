@@ -3,6 +3,7 @@ import config
 
 #Import dataframe
 df = config.df
+print(df.dtypes)
 
 #Connect Python to SQL Server
 server = config.server
@@ -24,9 +25,7 @@ cursor.execute("""CREATE TABLE customer(
     customer_city NVARCHAR(50),
     customer_state NVARCHAR(50),
     customer_country NVARCHAR(50),
-    customer_zipcode INT,
-    customer_email NVARCHAR(50),
-    customer_password NVARCHAR(50)
+    customer_zipcode INT
     )"""
 )
 
@@ -41,10 +40,8 @@ for row in df.itertuples():
                 customer_city,
                 customer_state,
                 customer_country,
-                customer_zipcode,
-                customer_email,
-                customer_password
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+                customer_zipcode
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
         """, 
         row.customer_id,
         row.customer_fname,
@@ -54,9 +51,7 @@ for row in df.itertuples():
         row.customer_city,
         row.customer_state,
         row.customer_country,
-        row.customer_zipcode,
-        row.customer_email,
-        row.customer_password,
+        row.customer_zipcode
     )
 conn.commit()
 cursor.close()
