@@ -3,22 +3,23 @@ import pyodbc
 import config
 
 #Create date dimension dataframe
-date_df = pd.DataFrame(pd.date_range('1/1/2014','12/31/2024'), columns=['day'])
+date_df = pd.DataFrame(pd.date_range('1/1/2021','12/31/2021'), columns=['day'])
 date_df['year'] = date_df['day'].dt.year
 date_df['quarter_number'] = date_df['day'].dt.quarter
 date_df['quarter_text'] = date_df['day'].apply(lambda x: f'Q{x.quarter} {x.strftime("%Y")}')
 date_df['month'] = date_df['day'].dt.month
 date_df['year_month'] = date_df['day'].dt.strftime("%B %Y")
 date_df['week'] = date_df['day'].dt.isocalendar().week
-date_df['year_week'] = date_df['day'].apply(lambda x: f'{x.isocalendar()[0]} Week {x.isocalendar()[1]}')
+date_df['year_week'] = date_df['day'].apply(lambda x: f'Week {x.isocalendar()[1]} of {x.isocalendar()[0]}')
 date_df['week_start'] = date_df['day'].dt.to_period('W').apply(lambda x: x.start_time)
 date_df['week_end'] = date_df['day'].dt.to_period('W').apply(lambda x: x.end_time).dt.day
 date_df['weekday'] = date_df['day'].dt.strftime("%A")
 
 date_df = pd.DataFrame(date_df)
 print(date_df)
+print(date_df.dtypes)
 
-#Connect Python to SQL Server
+# Connect Python to SQL Server
 server = config.server
 database = config.database
 username = config.username
@@ -30,7 +31,7 @@ cursor = conn.cursor()
 # Create date table
 cursor.execute("""CREATE TABLE date(
     date_key INT IDENTITY(1,1) PRIMARY KEY,
-    day DATE,
+    day DATETIME,
     year INT,
     quarter_number INT,
     quarter_text NVARCHAR(50),
@@ -38,8 +39,7 @@ cursor.execute("""CREATE TABLE date(
     year_month NVARCHAR(50),
     week INT,
     year_week NVARCHAR(50),
-    week_start DATE,
-    week_end DATE,
+    week_start DATETIME,
     weekday NVARCHAR(50)
     )"""
 )
@@ -47,31 +47,7 @@ cursor.execute("""CREATE TABLE date(
 # Insert DataFrame to Table
 for row in date_df.itertuples():
     cursor.execute(
-        """INSERT INTO [dbo].[date](
-            day,
-            year,
-            quarter_number,
-            quarter_text,
-            month,
-            year_month,
-            week,
-            year_week,
-            week_start,
-            week_end,
-            weekday
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
-        """, 
-        row.day,
-        row.year,
-        row.quarter_number,
-        row.quarter_text,
-        row.month,
-        row.year_month,
-        row.week,
-        row.year_week,
-        row.week_start,
-        row.week_end,
-        row.weekday
+        f"INSERT INTO [dbo].[date] (day, year, quarter_number, quarter_text, month, year_month, week, year_week, week_start, weekday) VALUES ({row.date}, '{row.nvarchar}');"
     )
 conn.commit()
 cursor.close()
