@@ -7,3 +7,4 @@ SELECT * FROM [dbo].[shipment];
 SELECT * FROM [dbo].[store];
 SELECT * FROM [dbo].[date];
 SELECT * FROM [dbo].[benefit];
+SELECT * FROM [dbo].[date];
