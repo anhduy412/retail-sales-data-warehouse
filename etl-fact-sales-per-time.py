@@ -30,7 +30,7 @@ cursor.execute("""
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[fact_sales_per_time] (order_item_quantity, ) VALUES ('{row.order_item_quantity}, '{row.order_date_dateorders}', {row.numeric},);"
+        f"INSERT INTO [dbo].[fact_sales_per_time] (order_item_quantity, ) VALUES ('{row.order_item_quantity}, '{row.order_date_dateorders}');"
     )
 
 conn.commit()
