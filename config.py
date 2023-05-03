@@ -5,7 +5,7 @@ import pyodbc
 data = pd.read_csv('data/DataCoSupplyChainDataset.csv', encoding = 'latin-1')
 df = pd.DataFrame(data)
 df.columns = [x.lower().replace(' ', '_').replace('(', '').replace(')', '') for x in df.columns]
-print(df.info)
+# print(df.info)
 
 # check the pyodbc drivers
 # print(pyodbc.drivers())
