@@ -22,15 +22,17 @@ cursor.execute("""CREATE TABLE fact_sales_per_time(
     )"""
 )
 
-# Perform Join with other tables
-cursor.execute("""
-    """
-)
 
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
         f"INSERT INTO [dbo].[fact_sales_per_time] (order_item_quantity, ) VALUES ('{row.order_item_quantity}, '{row.order_date_dateorders}');"
+    )
+
+# Insert DataFrame to Table
+for row in df.itertuples():
+    cursor.execute(
+        f"INSERT INTO [dbo].[benefits] (type, order_item_discount, order_item_discount_rate, order_item_product_price, order_item_profit_ratio, order_item_quantity, sales, order_item_total, order_profit_per_order) VALUES ('{row.type}', {row.order_item_discount}, {row.order_item_discount_rate}, {row.order_item_product_price}, {row.order_item_profit_ratio}, {row.order_item_quantity}, {row.sales}, {row.order_item_total}, {row.order_profit_per_order});"
     )
 
 conn.commit()
