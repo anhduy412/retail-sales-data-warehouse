@@ -16,6 +16,7 @@ cursor = conn.cursor()
 #Create benefits table 
 cursor.execute("""CREATE TABLE fact_sales_per_time(
     sales_per_time_key INT IDENTITY(1,1) PRIMARY KEY,
+    date_key INT FOREIGN KEY REFERENCES dim_date(date_key),
     order_key INT FOREIGN KEY REFERENCES [dbo].[dim_orders](order_key),
     order_item_quantity INT,
     order_date_dateorders DATE,
@@ -23,11 +24,10 @@ cursor.execute("""CREATE TABLE fact_sales_per_time(
 )
 
 #Perform join
-    # date_key INT FOREIGN KEY REFERENCES dim_date(date_key), move to line 20
 # cursor.execute("""SELECT
 #     date_key
 #     FROM [dbo].[dim_date] dt
-#     LEFT JOIN [dbo].[benefits] b ON b.date_key = dt.date_key)"""
+#     JOIN [dbo].[benefits] b ON b.date_key = dt.date_key)"""
 # )
 
 # Insert DataFrame to Table

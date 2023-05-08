@@ -29,3 +29,5 @@ for row in df.itertuples():
     )
 conn.commit()
 cursor.close()
+
+# xl df, tránh duplicate

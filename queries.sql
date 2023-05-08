@@ -10,3 +10,4 @@ SELECT * FROM [dbo].[benefit];
 SELECT * FROM [dbo].[date];
 SELECT * FROM [dbo].[sales];
 SELECT * FROM [dbo].[sales_per_time];
+SELECT * FROM [dbo].[dim_date];

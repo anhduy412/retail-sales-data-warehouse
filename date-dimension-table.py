@@ -46,7 +46,7 @@ cursor.execute("""CREATE TABLE dim_date(
 # Insert DataFrame to Table
 for row in date_df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[date](day, year, quarter_number, quarter_text, month, year_month, week, year_week, week_start, weekday) VALUES ('{row.day}', {row.year}, {row.quarter_number}, '{row.quarter_text}', {row.month}, '{row.year_month}', {row.week}, '{row.year_week}', '{row.week_start}', '{row.weekday}');"
+        f"INSERT INTO [dbo].[dim_date](day, year, quarter_number, quarter_text, month, year_month, week, year_week, week_start, weekday) VALUES ('{row.day}', {row.year}, {row.quarter_number}, '{row.quarter_text}', {row.month}, '{row.year_month}', {row.week}, '{row.year_week}', '{row.week_start}', '{row.weekday}');"
     )
 conn.commit()
 cursor.close()

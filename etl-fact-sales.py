@@ -3,7 +3,6 @@ import config
 
 #Import dataframe
 df = config.df
-print(df.dtypes)
 
 #Connect Python to SQL Server
 server = config.server
@@ -24,6 +23,7 @@ cursor.execute("""CREATE TABLE fact_sales(
     order_key INT FOREIGN KEY REFERENCES [dbo].[dim_orders](order_key),
     department_key INT FOREIGN KEY REFERENCES [dbo].[dim_department](department_key),
     store_key INT FOREIGN KEY REFERENCES [dbo].[dim_store](store_key),
+    date_key INT FOREIGN KEY REFERENCES [dbo].[dim_date](date_key),
     type NVARCHAR(50),
     order_item_discount FLOAT,
     order_item_discount_rate FLOAT,
@@ -37,17 +37,18 @@ cursor.execute("""CREATE TABLE fact_sales(
 )
 
 # Perform Join with other tables
-# cursor.execute("""SELECT
-#     shipment_key, 
-#     category_key, 
-#     product_key, 
-#     customer_key, 
-#     order_key, 
-#     department_key, 
-#     store_key,
-#     FROM [dbo].[dim_shipment] s, [dbo].[dim_category] c, [dbo].[dim_product] p, [dbo].[dim_customer] cust, [dbo].[dim_orders] o, [dbo].[dim_department] d, [dbo].[dim_store] st,
-#     JOIN [dbo].[fact_sales] b ON b.shipment_key = s.shipment_key, b.category_key = c.category_key, b.product_key = p.product_key, b.customer_key = cust.customer_key, b.order_key = o.order_key, b.department_key = d.department_key, b.store_key = st.store_key)"""
-# )
+cursor.execute("""SELECT
+    shipment_key, 
+    category_key, 
+    product_key, 
+    customer_key, 
+    order_key, 
+    department_key, 
+    store_key,
+    date_key
+    FROM [dbo].[dim_shipment] s, [dbo].[dim_category] c, [dbo].[dim_product] p, [dbo].[dim_customer] cust, [dbo].[dim_orders] o, [dbo].[dim_department] d, [dbo].[dim_store] st, [dbo].[dim_date] dt
+    JOIN [dbo].[fact_sales] b ON b.shipment_key = s.shipment_key, b.category_key = c.category_key, b.product_key = p.product_key, b.customer_key = cust.customer_key, b.order_key = o.order_key, b.department_key = d.department_key, b.store_key = st.store_key, b.date_key = dt.date_key)"""
+)
 
 # Insert DataFrame to Table
 for row in df.itertuples():
