@@ -3,7 +3,6 @@ import config
 
 #Import dataframe
 df = config.df
-print(df)
 
 #Connect Python to SQL Server
 server = config.server
