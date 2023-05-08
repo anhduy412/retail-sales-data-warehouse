@@ -14,7 +14,7 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create category table 
-cursor.execute("""CREATE TABLE category(category_key INT IDENTITY(1,1) PRIMARY KEY, category_id INT, category_name NVARCHAR(50))""")
+cursor.execute("""CREATE TABLE dim_category(category_key INT IDENTITY(1,1) PRIMARY KEY, category_id INT, category_name NVARCHAR(50))""")
 
 # Insert DataFrame to Table
 for row in df.itertuples():

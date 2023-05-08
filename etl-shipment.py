@@ -14,7 +14,7 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create shipment table 
-cursor.execute("""CREATE TABLE shipment(
+cursor.execute("""CREATE TABLE dim_shipment(
     shipment_key INT IDENTITY(1,1) PRIMARY KEY,
     days_for_shipment_scheduled INT,
     days_for_shipping_real INT,

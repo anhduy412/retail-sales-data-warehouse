@@ -14,7 +14,7 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create Department table 
-cursor.execute("""CREATE TABLE department(department_key INT IDENTITY(1,1) PRIMARY KEY, department_id INT, department_name NVARCHAR(50))""")
+cursor.execute("""CREATE TABLE dim_department(department_key INT IDENTITY(1,1) PRIMARY KEY, department_id INT, department_name NVARCHAR(50))""")
 
 # Insert DataFrame to Table
 for row in df.itertuples():

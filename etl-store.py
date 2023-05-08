@@ -14,7 +14,7 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create store table 
-cursor.execute("""CREATE TABLE store(store_key INT IDENTITY(1,1) PRIMARY KEY, latitude FLOAT, longitude FLOAT)""")
+cursor.execute("""CREATE TABLE dim_store(store_key INT IDENTITY(1,1) PRIMARY KEY, latitude FLOAT, longitude FLOAT)""")
 
 # Insert DataFrame to Table
 for row in df.itertuples():

@@ -15,7 +15,7 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create Customer Table 
-cursor.execute("""CREATE TABLE customer(
+cursor.execute("""CREATE TABLE dim_customer(
     customer_key INT IDENTITY(1,1) PRIMARY KEY,
     customer_id INT,
     customer_fname NVARCHAR(50),
