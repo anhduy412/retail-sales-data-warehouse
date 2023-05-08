@@ -19,7 +19,7 @@ cursor.execute("""CREATE TABLE dim_store(store_key INT IDENTITY(1,1) PRIMARY KEY
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[store] (latitude, longitude) VALUES ({row.latitude}, '{row.longitude}');"
+        f"INSERT INTO [dbo].[dim_store] (latitude, longitude) VALUES ({row.latitude}, '{row.longitude}');"
     )
 conn.commit()
 cursor.close()

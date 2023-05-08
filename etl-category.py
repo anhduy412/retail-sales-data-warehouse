@@ -19,7 +19,7 @@ cursor.execute("""CREATE TABLE dim_category(category_key INT IDENTITY(1,1) PRIMA
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        """INSERT INTO [dbo].[category](
+        """INSERT INTO [dbo].[dim_category](
             category_id, 
             category_name
             ) VALUES (?, ?);

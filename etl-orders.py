@@ -33,7 +33,7 @@ cursor.execute("""CREATE TABLE dim_orders(
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        """INSERT INTO [dbo].[orders](
+        """INSERT INTO [dbo].[dim_orders](
                 order_id,
                 order_item_id,
                 order_customer_id,

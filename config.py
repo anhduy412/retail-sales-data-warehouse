@@ -18,7 +18,7 @@ password = 'b4cB4jDA9BPI6Bwg' #password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 
 # Some code to test connection
-# cursor = conn.cursor()
-# cursor.execute("SELECT @@version;")
-# while row := cursor.fetchone():
-#     print(row[0])
+cursor = conn.cursor()
+cursor.execute("SELECT @@version;")
+while row := cursor.fetchone():
+    print(row[0])

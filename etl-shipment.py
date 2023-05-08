@@ -26,7 +26,7 @@ cursor.execute("""CREATE TABLE dim_shipment(
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        """INSERT INTO [dbo].[shipment](
+        """INSERT INTO [dbo].[dim_shipment](
                 days_for_shipment_scheduled,
                 days_for_shipping_real,
                 shipping_date_dateorders,

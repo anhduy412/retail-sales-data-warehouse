@@ -28,7 +28,7 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 # Create date table
-cursor.execute("""CREATE TABLE date(
+cursor.execute("""CREATE TABLE dim_date(
     date_key INT IDENTITY(1,1) PRIMARY KEY,
     day DATE,
     year INT,

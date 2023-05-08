@@ -28,7 +28,7 @@ cursor.execute("""CREATE TABLE dim_product(
 
 # Insert DataFrame to Table
 for row in df.itertuples():
-    cursor.execute("""INSERT INTO [dbo].[product](
+    cursor.execute("""INSERT INTO [dbo].[dim_product](
         product_card_id,
         product_category_id,
         product_image,
