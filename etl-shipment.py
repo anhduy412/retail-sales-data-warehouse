@@ -31,7 +31,8 @@ for row in df.itertuples():
                 days_for_shipping_real,
                 shipping_date_dateorders,
                 shipping_mode
-            ) VALUES (?, ?, ?, ?);
+            ) WHERE () NOT IN (SELECT * FROM [dbo].[dim_])
+            VALUES (?, ?, ?, ?);
         """, 
         row.days_for_shipment_scheduled,
         row.days_for_shipping_real,

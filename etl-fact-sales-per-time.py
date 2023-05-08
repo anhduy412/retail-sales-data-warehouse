@@ -33,7 +33,7 @@ cursor.execute("""CREATE TABLE fact_sales_per_time(
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[fact_sales_per_time] (order_item_quantity, order_date_dateorders) VALUES ({row.order_item_quantity}, '{row.order_date_dateorders}');"
+        f"INSERT INTO [dbo].[fact_sales_per_time] (order_item_quantity, order_date_dateorders) WHERE () NOT IN (SELECT * FROM [dbo].[dim_]) VALUES ({row.order_item_quantity}, '{row.order_date_dateorders}');"
     )
 
 conn.commit()

@@ -22,7 +22,9 @@ for row in df.itertuples():
         """INSERT INTO [dbo].[dim_category](
             category_id, 
             category_name
-            ) VALUES (?, ?);
+            )
+            WHERE () NOT IN (SELECT * FROM [dbo].[dim_])
+            VALUES (?, ?);
         """, 
         row.category_id, 
         row.category_name

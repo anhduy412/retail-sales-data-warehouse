@@ -45,7 +45,8 @@ for row in df.itertuples():
                 order_region,
                 order_state,
                 order_status
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+            ) WHERE () NOT IN (SELECT * FROM [dbo].[dim_])
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         """, 
         row.order_id,
         row.order_item_id,

@@ -31,7 +31,7 @@ cursor.execute("""CREATE TABLE dim_customer(
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[dim_customer](customer_id, customer_fname, customer_lname, customer_segment, customer_street, customer_city, customer_state, customer_country, customer_zipcode) VALUES ({row.customer_id}, '{row.customer_fname}', '{row.customer_lname}', '{row.customer_segment}','{row.customer_street}', '{row.customer_city}', '{row.customer_state}', '{row.customer_country}', '{row.customer_zipcode}');"
+        f"INSERT INTO [dbo].[dim_customer](customer_id, customer_fname, customer_lname, customer_segment, customer_street, customer_city, customer_state, customer_country, customer_zipcode) WHERE () NOT IN (SELECT * FROM [dbo].[dim_]) VALUES ({row.customer_id}, '{row.customer_fname}', '{row.customer_lname}', '{row.customer_segment}','{row.customer_street}', '{row.customer_city}', '{row.customer_state}', '{row.customer_country}', '{row.customer_zipcode}');"
     )
 conn.commit()
 cursor.close()
