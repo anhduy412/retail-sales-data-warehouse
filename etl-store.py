@@ -22,4 +22,5 @@ for row in df.itertuples():
         f"INSERT INTO [dbo].[dim_store] (latitude, longitude) VALUES ({row.latitude}, {row.longitude});"
     )
 conn.commit()
+print('Data inserted to SQL Server successfully.')
 cursor.close()

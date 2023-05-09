@@ -29,6 +29,7 @@ for row in df.itertuples():
         row.category_name
     )
 conn.commit()
+print('Data inserted to SQL Server successfully.')
 cursor.close()
 
 # xl df, tránh duplicate

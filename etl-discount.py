@@ -36,5 +36,5 @@ for row in df.itertuples():
         row.order_item_discount_rate
     )
 conn.commit()
-print('Insert to dim_discount successfully')
+print('Data inserted to SQL Server successfully.')
 cursor.close()

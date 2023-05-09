@@ -40,4 +40,5 @@ for row in df.itertuples():
         row.shipping_mode
     )
 conn.commit()
+print('Data inserted to SQL Server successfully.')
 cursor.close()

@@ -22,4 +22,5 @@ for row in df.itertuples():
         f"INSERT INTO [dbo].[dim_department] (department_id, department_name)  VALUES ({row.department_id}, '{row.department_name}');"
     )
 conn.commit()
-cursor.close()  
+print('Data inserted to SQL Server successfully.')
+cursor.close()
