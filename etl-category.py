@@ -23,7 +23,6 @@ for row in df.itertuples():
             category_id, 
             category_name
             )
-            WHERE () NOT IN (SELECT * FROM [dbo].[dim_])
             VALUES (?, ?);
         """, 
         row.category_id, 

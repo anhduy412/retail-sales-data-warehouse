@@ -20,13 +20,12 @@ cursor.execute("""CREATE TABLE fact_sales(
     category_key INT FOREIGN KEY REFERENCES [dbo].[dim_category](category_key),
     product_key INT FOREIGN KEY REFERENCES [dbo].[dim_product](product_key),
     customer_key INT FOREIGN KEY REFERENCES [dbo].[dim_customer](customer_key),
+    discount_key INT FOREIGN KEY REFERENCES [dbo].[dim_discount](discount_key),
     order_key INT FOREIGN KEY REFERENCES [dbo].[dim_orders](order_key),
     department_key INT FOREIGN KEY REFERENCES [dbo].[dim_department](department_key),
     store_key INT FOREIGN KEY REFERENCES [dbo].[dim_store](store_key),
     date_key INT FOREIGN KEY REFERENCES [dbo].[dim_date](date_key),
     type NVARCHAR(50),
-    order_item_discount FLOAT,
-    order_item_discount_rate FLOAT,
     order_item_product_price FLOAT,
     order_item_profit_ratio FLOAT,
     order_item_quantity INT,
@@ -53,7 +52,7 @@ cursor.execute("""SELECT
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[fact_sales] (type, order_item_discount, order_item_discount_rate, order_item_product_price, order_item_profit_ratio, order_item_quantity, sales, order_item_total, order_profit_per_order) WHERE () NOT IN (SELECT * FROM [dbo].[dim_]) VALUES ('{row.type}', {row.order_item_discount}, {row.order_item_discount_rate}, {row.order_item_product_price}, {row.order_item_profit_ratio}, {row.order_item_quantity}, {row.sales}, {row.order_item_total}, {row.order_profit_per_order});"
+        f"INSERT INTO [dbo].[fact_sales] (type, order_item_discount, order_item_discount_rate, order_item_product_price, order_item_profit_ratio, order_item_quantity, sales, order_item_total, order_profit_per_order)  VALUES ('{row.type}', {row.order_item_discount}, {row.order_item_discount_rate}, {row.order_item_product_price}, {row.order_item_profit_ratio}, {row.order_item_quantity}, {row.sales}, {row.order_item_total}, {row.order_profit_per_order});"
     )
 
 conn.commit()

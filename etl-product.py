@@ -35,7 +35,7 @@ for row in df.itertuples():
         product_name,
         product_price,
         product_status
-        ) WHERE () NOT IN (SELECT * FROM [dbo].[dim_])
+        ) 
         VALUES (?, ?, ?, ?, ?, ?);
         """, 
         row.product_card_id,

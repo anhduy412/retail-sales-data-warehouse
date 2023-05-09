@@ -19,7 +19,7 @@ cursor.execute("""CREATE TABLE dim_department(department_key INT IDENTITY(1,1) P
 # Insert DataFrame to Table
 for row in df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[dim_department] (department_id, department_name) WHERE () NOT IN (SELECT * FROM [dbo].[dim_]) VALUES ({row.department_id}, '{row.department_name}');"
+        f"INSERT INTO [dbo].[dim_department] (department_id, department_name)  VALUES ({row.department_id}, '{row.department_name}');"
     )
 conn.commit()
 cursor.close()  

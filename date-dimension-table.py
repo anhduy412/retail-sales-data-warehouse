@@ -15,8 +15,6 @@ date_df['week_start'] = date_df['day'].dt.to_period('W').apply(lambda x: x.start
 date_df['weekday'] = date_df['day'].dt.strftime("%A")
 
 date_df = pd.DataFrame(date_df)
-# print(date_df)
-# print(date_df.dtypes)
 
 # Connect Python to SQL Server
 server = config.server
