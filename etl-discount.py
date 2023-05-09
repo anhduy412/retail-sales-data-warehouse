@@ -19,6 +19,7 @@ cursor.execute("""
         discount_key INT IDENTITY(1,1) PRIMARY KEY, 
         order_item_discount FLOAT,
         order_item_discount_rate FLOAT,
+        sales FLOAT
     )"""
 )
 conn.commit()
@@ -28,12 +29,14 @@ for row in df.itertuples():
     cursor.execute("""
         INSERT INTO [dbo].[dim_discount](
             order_item_discount,
-            order_item_discount_rate
+            order_item_discount_rate,
+            sales
         )
-        VALUES (?, ?)
+        VALUES (?, ?, ?)
         """, 
         row.order_item_discount,
-        row.order_item_discount_rate
+        row.order_item_discount_rate,
+        row.sales
     )
 conn.commit()
 print('Data inserted to SQL Server successfully.')

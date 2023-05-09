@@ -25,8 +25,9 @@ cursor.execute("""CREATE TABLE fact_transaction(
 )
 
 # Perform Join with other tables
-cursor.execute("""SELECT
-               """
+cursor.execute("""
+    SELECT 
+    """
 )
 
 # Insert DataFrame to Table
