@@ -20,7 +20,7 @@ cursor.execute("""
         date_key INT FOREIGN KEY REFERENCES dim_date(date_key),
         product_key INT FOREIGN KEY REFERENCES dim_product(product_key),
         store_key INT FOREIGN KEY REFERENCES dim_store(store_key),
-        discount_key INT FOREIGN KEY REFERENCES dim_discount(discount_key),
+        discount_key INT FOREIGN KEY REFERENCES dim_promotion(discount_key),
         type NVARCHAR(50),
         order_item_discount FLOAT,
         order_item_discount_rate FLOAT,
