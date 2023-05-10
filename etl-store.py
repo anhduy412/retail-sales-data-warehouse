@@ -1,3 +1,4 @@
+import pandas as pd
 import pyodbc
 import config
 
@@ -13,11 +14,20 @@ password = config.password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
 
+#Avoid duplicate
+temp_df = df[['latitude', 'longitude']].values.tolist()
+store_df = []
+for x in temp_df:
+    if x not in store_df:
+        store_df.append(x)
+store_df = pd.DataFrame(store_df, columns=['latitude', 'longitude'])
+print(store_df)
+
 #Create store table 
 cursor.execute("""CREATE TABLE dim_store(store_key INT IDENTITY(1,1) PRIMARY KEY, latitude FLOAT, longitude FLOAT)""")
 
 # Insert DataFrame to Table
-for row in df.itertuples():
+for row in store_df.itertuples():
     cursor.execute(
         f"INSERT INTO [dbo].[dim_store] (latitude, longitude) VALUES ({row.latitude}, {row.longitude});"
     )
