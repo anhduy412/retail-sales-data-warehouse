@@ -11,7 +11,7 @@ df.columns = [x.lower().replace(' ', '_').replace('(', '').replace(')', '') for 
 # print(pyodbc.drivers())
 
 #some required variables for SQL connection
-database = 'RetailSales' #database name
+database = 'retail_sales' #database name
 server = 'ROG' #server name
 username = 'ad' #username
 password = 'b4cB4jDA9BPI6Bwg' #password
