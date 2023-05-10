@@ -19,7 +19,7 @@ cursor.execute("""CREATE TABLE fact_sales(
     category_key INT FOREIGN KEY REFERENCES [dbo].[dim_category](category_key),
     product_key INT FOREIGN KEY REFERENCES [dbo].[dim_product](product_key),
     customer_key INT FOREIGN KEY REFERENCES [dbo].[dim_customer](customer_key),
-    discount_key INT FOREIGN KEY REFERENCES [dbo].[dim_promotion](discount_key),
+    discount_key INT FOREIGN KEY REFERENCES [dbo].[dim_disount](discount_key),
     order_key INT FOREIGN KEY REFERENCES [dbo].[dim_orders](order_key),
     department_key INT FOREIGN KEY REFERENCES [dbo].[dim_department](department_key),
     store_key INT FOREIGN KEY REFERENCES [dbo].[dim_store](store_key),

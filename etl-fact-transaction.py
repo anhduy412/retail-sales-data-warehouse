@@ -18,7 +18,7 @@ cursor.execute("""CREATE TABLE fact_transaction(
     date_key INT FOREIGN KEY REFERENCES dim_date(date_key),
     product_key INT FOREIGN KEY REFERENCES dim_product(product_key),
     store_key INT FOREIGN KEY REFERENCES dim_store(store_key),
-    discount_key INT FOREIGN KEY REFERENCES dim_promotion(discount_key),
+    discount_key INT FOREIGN KEY REFERENCES dim_disount(discount_key),
     type NVARCHAR(50),
     order_item_quantity INT,
     order_item_product_price FLOAT,
