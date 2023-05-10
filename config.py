@@ -19,6 +19,6 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 
 # Some code to test connection
 cursor = conn.cursor()
-# cursor.execute("SELECT @@version;")
-# while row := cursor.fetchone():
-#     print(row[0])
+cursor.execute("SELECT @@version;")
+while row := cursor.fetchone():
+    print(row[0])

@@ -1,3 +1,4 @@
+import pandas as pd
 import pyodbc
 import config
 
@@ -12,6 +13,15 @@ password = config.password
 
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
+
+#Avoid duplicate
+temp_df = df[['customer_id', 'customer_fname', 'customer_lname', 'customer_segment', 'customer_street', 'customer_city', 'customer_state', 'customer_country', 'customer_zipcode']].values.tolist()
+customer_df = []
+for x in temp_df:
+    if x not in customer_df:
+        customer_df.append(x)
+customer_df = pd.DataFrame(customer_df, columns=['customer_id', 'customer_fname', 'customer_lname', 'customer_segment', 'customer_street', 'customer_city', 'customer_state', 'customer_country', 'customer_zipcode'])
+print(customer_df)
 
 #Create Customer Table 
 cursor.execute("""CREATE TABLE dim_customer(
@@ -29,7 +39,7 @@ cursor.execute("""CREATE TABLE dim_customer(
 )
 
 # Insert DataFrame to Table
-for row in df.itertuples():
+for row in customer_df.itertuples():
     cursor.execute(
         f"INSERT INTO [dbo].[dim_customer](customer_id, customer_fname, customer_lname, customer_segment, customer_street, customer_city, customer_state, customer_country, customer_zipcode)  VALUES ({row.customer_id}, '{row.customer_fname}', '{row.customer_lname}', '{row.customer_segment}','{row.customer_street}', '{row.customer_city}', '{row.customer_state}', '{row.customer_country}', '{row.customer_zipcode}');"
     )

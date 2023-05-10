@@ -1,3 +1,4 @@
+import pandas as pd
 import pyodbc
 import config
 
@@ -13,6 +14,15 @@ cursor = conn.cursor()
 #Import dataframe
 df = config.df
 
+#Avoid duplicate
+temp_df = df[['order_item_discount', 'order_item_discount_rate', 'sales']].values.tolist()
+discount_df = []
+for x in temp_df:
+    if x not in discount_df:
+        discount_df.append(x)
+discount_df = pd.DataFrame(discount_df, columns=['order_item_discount', 'order_item_discount_rate', 'sales'])
+print(discount_df)
+
 #Create category table 
 cursor.execute("""
     CREATE TABLE dim_disount(
@@ -25,7 +35,7 @@ cursor.execute("""
 conn.commit()
 
 # Insert DataFrame to Table
-for row in df.itertuples():
+for row in discount_df.itertuples():
     cursor.execute("""
         INSERT INTO [dbo].[dim_disount](
             order_item_discount,

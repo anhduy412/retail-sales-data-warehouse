@@ -1,3 +1,4 @@
+import pandas as pd
 import pyodbc
 import config
 
@@ -13,6 +14,15 @@ password = config.password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
 
+#Avoid duplicate
+temp_df = df[['order_item_product_price', 'order_item_profit_ratio', 'order_item_quantity', 'order_item_total', 'order_profit_per_order']].values.tolist()
+profit_df = []
+for x in temp_df:
+    if x not in profit_df:
+        profit_df.append(x)
+profit_df = pd.DataFrame(profit_df, columns=['order_item_product_price', 'order_item_profit_ratio', 'order_item_quantity', 'order_item_total', 'order_profit_per_order'])
+print(profit_df)
+
 #Create shipment table 
 cursor.execute("""CREATE TABLE dim_profit(
     profit_key INT IDENTITY(1,1) PRIMARY KEY,
@@ -25,7 +35,7 @@ cursor.execute("""CREATE TABLE dim_profit(
 )
 
 # Insert DataFrame to Table
-for row in df.itertuples():
+for row in profit_df.itertuples():
     cursor.execute(
         """INSERT INTO [dbo].[dim_profit](
             order_item_product_price,

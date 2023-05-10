@@ -1,3 +1,4 @@
+import pandas as pd
 import pyodbc
 import config
 
@@ -13,6 +14,15 @@ password = config.password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
 
+#Avoid duplicate
+temp_df = df[['days_for_shipment_scheduled', 'days_for_shipping_real', 'shipping_date_dateorders', 'shipping_mode']].values.tolist()
+shipment_df = []
+for x in temp_df:
+    if x not in shipment_df:
+        shipment_df.append(x)
+shipment_df = pd.DataFrame(shipment_df, columns=['days_for_shipment_scheduled', 'days_for_shipping_real', 'shipping_date_dateorders', 'shipping_mode'])
+print(shipment_df)
+
 #Create shipment table 
 cursor.execute("""CREATE TABLE dim_shipment(
     shipment_key INT IDENTITY(1,1) PRIMARY KEY,
@@ -24,7 +34,7 @@ cursor.execute("""CREATE TABLE dim_shipment(
 )
 
 # Insert DataFrame to Table
-for row in df.itertuples():
+for row in shipment_df.itertuples():
     cursor.execute(
         """INSERT INTO [dbo].[dim_shipment](
                 days_for_shipment_scheduled,

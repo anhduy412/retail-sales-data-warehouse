@@ -1,3 +1,4 @@
+import pandas as pd
 import pyodbc
 import config
 
@@ -12,6 +13,15 @@ password = config.password
 
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
+
+#Avoid duplicate
+temp_df = df[['order_id', 'order_item_id', 'order_customer_id', 'order_item_cardprod_id', 'market', 'order_city', 'order_country', 'order_date_dateorders', 'order_region', 'order_state', 'order_status']].values.tolist()
+orders_df = []
+for x in temp_df:
+    if x not in orders_df:
+        orders_df.append(x)
+orders_df = pd.DataFrame(orders_df, columns=['order_id', 'order_item_id', 'order_customer_id', 'order_item_cardprod_id', 'market', 'order_city', 'order_country', 'order_date_dateorders', 'order_region', 'order_state', 'order_status'])
+print(orders_df)
 
 #Create orders table 
 cursor.execute("""CREATE TABLE dim_orders(
@@ -31,7 +41,7 @@ cursor.execute("""CREATE TABLE dim_orders(
 )
 
 # Insert DataFrame to Table
-for row in df.itertuples():
+for row in orders_df.itertuples():
     cursor.execute(
         """INSERT INTO [dbo].[dim_orders](
                 order_id,
