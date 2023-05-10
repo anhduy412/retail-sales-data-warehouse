@@ -20,7 +20,12 @@ cursor.execute("""CREATE TABLE fact_transaction(
     store_key INT FOREIGN KEY REFERENCES dim_store(store_key),
     discount_key INT FOREIGN KEY REFERENCES dim_promotion(discount_key),
     type NVARCHAR(50),
-    
+    order_item_quantity INT,
+    order_item_product_price FLOAT,
+    order_item_discount FLOAT,
+    order_item_discount_rate FLOAT,
+    sales FLOAT,
+    order_item_total FLOAT,
     )"""
 )
 

@@ -35,6 +35,5 @@ for row in df.itertuples():
     cursor.execute(
         f"INSERT INTO [dbo].[fact_sales_per_time] (order_item_quantity, order_date_dateorders)  VALUES ({row.order_item_quantity}, '{row.order_date_dateorders}');"
     )
-
 conn.commit()
 cursor.close()
