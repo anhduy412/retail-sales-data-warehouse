@@ -14,7 +14,7 @@ password = config.password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
 
-#Create a new dataframe to avoid inserting duplicate data data
+#Create a new dataframe to avoid inserting duplicate data
 temp_df = df[['customer_key', 'date_key', 'product_key', 'store_key', 'discount_key', 'type', 'order_item_total', 'order_item_quantity']].values.tolist()
 fact_customer_df = []
 for x in temp_df:
@@ -48,7 +48,10 @@ cursor.execute("""
         discount_key,
     FROM dcscd
     JOIN dim_customer ON dcscd.customer_id = dim_customer.customer_id
+    JOIN dim_date ON dcscd.customer_id = dim_customer.customer_id
     JOIN dim_product ON dcscd.product_card_id = dim_product.product_card_id
+    JOIN dim_store ON dcscd.customer_id = dim_customer.customer_id
+    JOIN dim_discount ON dcscd.customer_id = dim_customer.customer_id and 
     """
 )
 

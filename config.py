@@ -5,6 +5,10 @@ import pyodbc
 data = pd.read_csv('data/DataCoSupplyChainDataset.csv', encoding = 'latin-1')
 df = pd.DataFrame(data)
 df.columns = [x.lower().replace(' ', '_').replace('(', '').replace(')', '') for x in df.columns]
+df['shipping_date_dateorders'] = pd.to_datetime(df['shipping_date_dateorders'])
+df['shipping_date_dateorders'] = df['shipping_date_dateorders'].dt.strftime('%Y-%m-%d')
+df['order_date_dateorders'] = pd.to_datetime(df['order_date_dateorders'])
+df['order_date_dateorders'] = df['order_date_dateorders'].dt.strftime('%Y-%m-%d')
 # print(df.info)
 
 # check the pyodbc drivers
