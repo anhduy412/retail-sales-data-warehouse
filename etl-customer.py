@@ -14,7 +14,7 @@ password = config.password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
 
-#Avoid duplicate
+#Create a new dataframe to avoid inserting duplicate data
 temp_df = df[['customer_id', 'customer_fname', 'customer_lname', 'customer_segment', 'customer_street', 'customer_city', 'customer_state', 'customer_country', 'customer_zipcode']].values.tolist()
 customer_df = []
 for x in temp_df:

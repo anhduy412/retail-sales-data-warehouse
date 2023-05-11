@@ -14,7 +14,7 @@ password = config.password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
 
-#Avoid duplicate
+#Create a new dataframe to avoid inserting duplicate data
 temp_df = df[['order_item_product_price', 'order_item_profit_ratio', 'order_item_quantity', 'order_item_total', 'order_profit_per_order']].values.tolist()
 profit_df = []
 for x in temp_df:

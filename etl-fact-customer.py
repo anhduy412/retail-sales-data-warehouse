@@ -1,3 +1,4 @@
+import pandas as pd
 import pyodbc
 import config
 
@@ -13,6 +14,15 @@ password = config.password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 cursor = conn.cursor()
 
+#Create a new dataframe to avoid inserting duplicate data data
+temp_df = df[['customer_key', 'date_key', 'product_key', 'store_key', 'discount_key', 'type', 'order_item_total', 'order_item_quantity']].values.tolist()
+fact_customer_df = []
+for x in temp_df:
+    if x not in fact_customer_df:
+        fact_customer_df.append(x)
+fact_customer_df = pd.DataFrame(fact_customer_df, columns=['customer_key', 'date_key', 'product_key', 'store_key', 'discount_key', 'type', 'order_item_total', 'order_item_quantity'])
+print(fact_customer_df)
+
 #Create customer fact table
 cursor.execute("""
     CREATE TABLE fact_customer(
@@ -23,44 +33,36 @@ cursor.execute("""
         discount_key INT FOREIGN KEY REFERENCES dim_disount(discount_key),
         type NVARCHAR(50),
         order_item_total FLOAT,
-        order_item_discount FLOAT,
-        order_item_discount_rate FLOAT,
-        order_item_product_price FLOAT,
-        order_item_profit_ratio FLOAT,
         order_item_quantity INT
     )"""
 )
 
 # Perform Join with other tables
 cursor.execute("""
+    INSERT INTO fact_customer(customer_key, product_key)
     SELECT
-        dim_customer.customer_key, #id
-        dim_product.product_key, #id
-    FROM fact_customer
-    JOIN dim_customer ON fact_customer.customer_id = dim_customer.customer_id
-    JOIN dim_product ON fact_customer.product_key = dim_product.product_id
+        customer_key,
+        date_key,
+        product_key,
+        store_key,
+        discount_key,
+    FROM dcscd
+    JOIN dim_customer ON dcscd.customer_id = dim_customer.customer_id
+    JOIN dim_product ON dcscd.product_card_id = dim_product.product_card_id
     """
 )
 
 # Insert DataFrame to Table
-for row in df.itertuples():
-    cursor.execute("""
+for row in fact_customer_df.itertuples():
+    cursor.execute(""" 
         INSERT INTO [dbo].[fact_customer] (
             type,
             order_item_total,
-            order_item_discount,
-            order_item_discount_rate,
-            order_item_product_price,
-            order_item_profit_ratio,
             order_item_quantity
-        ) VALUES (?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?)
         """,
         row.type,
         row.order_item_total,
-        row.order_item_discount,
-        row.order_item_discount_rate,
-        row.order_item_product_price,
-        row.order_item_profit_ratio,
         row.order_item_quantity
     )
     conn.commit()
