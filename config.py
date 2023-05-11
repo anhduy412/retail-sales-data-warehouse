@@ -1,20 +1,21 @@
 import pandas as pd
 import pyodbc
 
-#import csv file into dataframe and clean table and coulumn names (lowercase letters. remove spaces and special characters)
-data = pd.read_csv('data/DataCoSupplyChainDataset.csv', encoding = 'latin-1')
+#Import csv file into dataframe and perfrom data cleaning
+data = pd.read_csv('data/DataCoSupplyChainDataset.csv')
 df = pd.DataFrame(data)
 df.columns = [x.lower().replace(' ', '_').replace('(', '').replace(')', '') for x in df.columns]
 df['shipping_date_dateorders'] = pd.to_datetime(df['shipping_date_dateorders'])
 df['shipping_date_dateorders'] = df['shipping_date_dateorders'].dt.strftime('%Y-%m-%d')
 df['order_date_dateorders'] = pd.to_datetime(df['order_date_dateorders'])
 df['order_date_dateorders'] = df['order_date_dateorders'].dt.strftime('%Y-%m-%d')
-# print(df.info)
+# df.to_csv('DataCoSupplyChainDatasetUTF81.csv', encoding='utf-8-sig', index=False)
+# print(df.dtypes)
 
-# check the pyodbc drivers
+#Check the pyodbc drivers
 # print(pyodbc.drivers())
 
-#some required variables for SQL connection
+#Some required variables for SQL connection
 database = 'retail_sales' #database name
 server = 'ROG' #server name
 username = 'ad' #username

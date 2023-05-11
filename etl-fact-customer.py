@@ -32,8 +32,8 @@ cursor.execute("""
         store_key INT FOREIGN KEY REFERENCES dim_store(store_key),
         discount_key INT FOREIGN KEY REFERENCES dim_disount(discount_key),
         type NVARCHAR(50),
-        order_item_total FLOAT,
         order_item_quantity INT
+        order_item_total FLOAT,
     )"""
 )
 
@@ -48,10 +48,10 @@ cursor.execute("""
         discount_key,
     FROM dcscd
     JOIN dim_customer ON dcscd.customer_id = dim_customer.customer_id
-    JOIN dim_date ON dcscd.customer_id = dim_customer.customer_id
+    JOIN dim_date ON dcscd.order_date_dateorders = dim_customer.day
     JOIN dim_product ON dcscd.product_card_id = dim_product.product_card_id
-    JOIN dim_store ON dcscd.customer_id = dim_customer.customer_id
-    JOIN dim_discount ON dcscd.customer_id = dim_customer.customer_id and 
+    JOIN dim_store ON dcscd.store_latitude = dim_store.latitude AND dcscd.store_longitude = dim_store.longitude
+    JOIN dim_discount ON dcscd.order_item_discount = dim_customer.order_item_discount AND dcscd.order_item_discount_rate = dim_discount.order_item_discount_rate AND dcscd.sales = dim_discount.sales
     """
 )
 
