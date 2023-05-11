@@ -25,7 +25,7 @@ print(discount_df)
 
 #Create category table 
 cursor.execute("""
-    CREATE TABLE dim_disount(
+    CREATE TABLE dim_discount(
         discount_key INT IDENTITY(1,1) PRIMARY KEY, 
         order_item_discount FLOAT,
         order_item_discount_rate FLOAT,
@@ -37,7 +37,7 @@ conn.commit()
 # Insert DataFrame to Table
 for row in discount_df.itertuples():
     cursor.execute("""
-        INSERT INTO [dbo].[dim_disount](
+        INSERT INTO [dbo].[dim_discount](
             order_item_discount,
             order_item_discount_rate,
             sales
