@@ -26,6 +26,7 @@ cursor.execute("""
     INSERT INTO fact_()
     SELECT
         dim_._key,
+        type,
     FROM dcscd
     JOIN dim_ ON dcscd. = dim_.
     JOIN dim_ ON dcscd. = dim_.

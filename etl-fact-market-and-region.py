@@ -16,7 +16,7 @@ cursor = conn.cursor()
 
 #Create shipment fact table
 cursor.execute("""
-    CREATE TABLE fact_shipment(
+    CREATE TABLE fact_market_and_region(
         shipment_key INT FOREIGN KEY REFERENCES dim_shipment(shipment_key),
         date_key INT FOREIGN KEY REFERENCES dim_date(date_key),
         customer_key INT FOREIGN KEY REFERENCES dim_customer(customer_key),
@@ -29,14 +29,14 @@ conn.commit()
 
 # Insert DataFrame to Table and perform Join with other tables
 cursor.execute("""
-    INSERT INTO fact_shipment(shipment_key, date_key, customer_key, order_key, market, oder_region)
+    INSERT INTO fact_market_and_region(shipment_key, date_key, customer_key, order_key, market, order_region)
     SELECT
         dim_shipment.shipment_key,
         dim_date.date_key,
         dim_customer.customer_key,
         dim_orders.order_key,
-        market,
-        order_region
+        dcscd.market,
+        dcscd.order_region
     FROM dcscd
     JOIN dim_shipment ON dcscd.days_for_shipment_scheduled = dim_shipment.days_for_shipment_scheduled AND dcscd.days_for_shipping_real = dim_shipment.days_for_shipping_real AND dcscd.shipping_date_dateorders = dim_shipment.shipping_date_dateorders AND dcscd.shipping_mode = dim_shipment.shipping_mode
     JOIN dim_date ON dcscd.shipping_date_dateorders = dim_date.day
