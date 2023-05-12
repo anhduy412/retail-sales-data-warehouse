@@ -23,7 +23,7 @@ conn.commit()
 
 # Insert DataFrame to Table and perform Join with other tables
 cursor.execute("""
-    INSERT INTO fact_(_key, product_key, date_key, discount_key, type, order_item_quantity, order_item_total)
+    INSERT INTO fact_()
     SELECT
         dim_._key,
     FROM dcscd
