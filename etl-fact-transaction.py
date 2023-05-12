@@ -16,7 +16,15 @@ cursor = conn.cursor()
 #Create  fact table
 cursor.execute("""
     CREATE TABLE fact_(
-        
+        date_key INT FOREIGN KEY REFERENCES dim_date(date_key),
+        order_key INT FOREIGN KEY REFERENCES dim_order(order_key),
+        product_key INT FOREIGN KEY REFERENCES dim_product(product_key),
+        discount_key INT FOREIGN KEY REFERENCES dim_promotion(discount_key),
+        customer_key INT FOREIGN KEY REFERENCES dim_customer(customer_key),
+        profit_key INT FOREIGN KEY REFERENCES dim_profit(profit_key),
+        order_status NVARCHAR(50),
+        type NVARCHAR(50),
+        sales FLOAT
     )"""
 )
 conn.commit()
@@ -25,8 +33,15 @@ conn.commit()
 cursor.execute("""
     INSERT INTO fact_()
     SELECT
-        dim_._key,
+        dim_date.date_key,
+        dim_order.order_key,
+        dim_product.product_key,
+        dim_discount.discount_key,
+        dim_customer_key,
+        profit_key,
+        order_status,
         type,
+        sales
     FROM dcscd
     JOIN dim_ ON dcscd. = dim_.
     JOIN dim_ ON dcscd. = dim_.

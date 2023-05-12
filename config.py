@@ -2,7 +2,7 @@ import pandas as pd
 import pyodbc
 
 #Import csv file into dataframe and perfrom data cleaning
-data = pd.read_csv('data/DataCoSupplyChainDataset.csv')
+data = pd.read_csv('data/DataCoSupplyChainDataset.csv', float_precision=None, encoding='utf-8-sig')
 df = pd.DataFrame(data)
 df.columns = [x.lower().replace(' ', '_').replace('(', '').replace(')', '') for x in df.columns]
 df['shipping_date_dateorders'] = pd.to_datetime(df['shipping_date_dateorders'])
