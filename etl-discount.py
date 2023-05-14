@@ -23,13 +23,12 @@ for x in temp_df:
 discount_df = pd.DataFrame(discount_df, columns=['order_item_discount', 'order_item_discount_rate', 'sales'])
 # print(discount_df)
 
-#Create discount table 
+#Create discount  table 
 cursor.execute("""
     CREATE TABLE dim_discount(
         discount_key INT IDENTITY(1,1) PRIMARY KEY, 
         order_item_discount FLOAT,
-        order_item_discount_rate FLOAT,
-        sales FLOAT
+        order_item_discount_rate FLOAT
     )"""
 )
 conn.commit()
@@ -39,14 +38,12 @@ for row in discount_df.itertuples():
     cursor.execute("""
         INSERT INTO [dbo].[dim_discount](
             order_item_discount,
-            order_item_discount_rate,
-            sales
+            order_item_discount_rate
         )
-        VALUES (?, ?, ?)
+        VALUES (?, ?)
         """, 
         row.order_item_discount,
-        row.order_item_discount_rate,
-        row.sales
+        row.order_item_discount_rate
     )
 conn.commit()
 print('Data inserted to SQL Server successfully.')
