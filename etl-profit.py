@@ -21,7 +21,7 @@ for x in temp_df:
     if x not in profit_df:
         profit_df.append(x)
 profit_df = pd.DataFrame(profit_df, columns=['order_item_product_price', 'order_item_profit_ratio', 'order_item_quantity', 'order_item_total', 'order_profit_per_order'])
-print(profit_df)
+# print(profit_df)
 
 #Create shipment table 
 cursor.execute("""CREATE TABLE dim_profit(

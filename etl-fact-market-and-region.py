@@ -35,8 +35,8 @@ cursor.execute("""
         dim_date.date_key,
         dim_customer.customer_key,
         dim_orders.order_key,
-        dcscd.market,
-        dcscd.order_region
+        market,
+        order_region
     FROM dcscd
     JOIN dim_shipment ON dcscd.days_for_shipment_scheduled = dim_shipment.days_for_shipment_scheduled AND dcscd.days_for_shipping_real = dim_shipment.days_for_shipping_real AND dcscd.shipping_date_dateorders = dim_shipment.shipping_date_dateorders AND dcscd.shipping_mode = dim_shipment.shipping_mode
     JOIN dim_date ON dcscd.shipping_date_dateorders = dim_date.day

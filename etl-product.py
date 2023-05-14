@@ -21,7 +21,7 @@ for x in temp_df:
     if x not in product_df:
         product_df.append(x)
 product_df = pd.DataFrame(product_df, columns=['product_card_id', 'product_category_id', 'product_image', 'product_name', 'product_price'])
-print(product_df)
+# print(product_df)
 
 #Create product table 
 cursor.execute("""CREATE TABLE dim_product(

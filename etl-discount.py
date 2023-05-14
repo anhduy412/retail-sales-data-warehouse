@@ -21,9 +21,9 @@ for x in temp_df:
     if x not in discount_df:
         discount_df.append(x)
 discount_df = pd.DataFrame(discount_df, columns=['order_item_discount', 'order_item_discount_rate', 'sales'])
-print(discount_df)
+# print(discount_df)
 
-#Create category table 
+#Create discount table 
 cursor.execute("""
     CREATE TABLE dim_discount(
         discount_key INT IDENTITY(1,1) PRIMARY KEY, 

@@ -21,7 +21,7 @@ for x in temp_df:
     if x not in customer_df:
         customer_df.append(x)
 customer_df = pd.DataFrame(customer_df, columns=['customer_id', 'customer_fname', 'customer_lname', 'customer_segment', 'customer_street', 'customer_city', 'customer_state', 'customer_country', 'customer_zipcode'])
-print(customer_df)
+# print(customer_df)
 
 #Create Customer Table 
 cursor.execute("""CREATE TABLE dim_customer(

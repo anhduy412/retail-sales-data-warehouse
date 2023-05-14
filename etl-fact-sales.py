@@ -22,8 +22,7 @@ cursor.execute("""
         customer_key INT FOREIGN KEY REFERENCES dim_customer(customer_key),
         product_key INT FOREIGN KEY REFERENCES dim_product(product_key),
         order_item_quantity INT,
-        order_item_total FLOAT,
-        
+        order_item_total FLOAT
     )"""
 )
 conn.commit()

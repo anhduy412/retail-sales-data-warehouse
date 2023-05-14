@@ -21,7 +21,7 @@ for x in temp_df:
     if x not in shipment_df:
         shipment_df.append(x)
 shipment_df = pd.DataFrame(shipment_df, columns=['days_for_shipment_scheduled', 'days_for_shipping_real', 'shipping_date_dateorders', 'shipping_mode'])
-print(shipment_df)
+# print(shipment_df)
 
 #Create shipment table 
 cursor.execute("""CREATE TABLE dim_shipment(

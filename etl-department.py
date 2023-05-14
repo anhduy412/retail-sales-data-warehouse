@@ -21,7 +21,7 @@ for x in temp_df:
     if x not in dept_df:
         dept_df.append(x)
 dept_df = pd.DataFrame(dept_df, columns=['department_id', 'department_name'])
-print(dept_df)
+# print(dept_df)
 
 #Create Department table 
 cursor.execute("""CREATE TABLE dim_department(department_key INT IDENTITY(1,1) PRIMARY KEY, department_id INT, department_name NVARCHAR(50))""")

@@ -21,7 +21,7 @@ for x in temp_df:
     if x not in category_df:
         category_df.append(x)
 category_df = pd.DataFrame(category_df, columns=['category_id', 'category_name'])
-print(category_df)
+# print(category_df)
 
 #Create category table 
 cursor.execute("""CREATE TABLE dim_category(category_key INT IDENTITY(1,1) PRIMARY KEY, category_id INT, category_name NVARCHAR(50))""")

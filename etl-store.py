@@ -21,7 +21,7 @@ for x in temp_df:
     if x not in store_df:
         store_df.append(x)
 store_df = pd.DataFrame(store_df, columns=['latitude', 'longitude'])
-print(store_df)
+# print(store_df)
 
 #Create store table 
 cursor.execute("""CREATE TABLE dim_store(store_key INT IDENTITY(1,1) PRIMARY KEY, latitude FLOAT, longitude FLOAT)""")

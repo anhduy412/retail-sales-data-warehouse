@@ -13,6 +13,7 @@ date_df['week'] = date_df['day'].dt.isocalendar().week.astype(int)
 date_df['year_week'] = date_df['day'].apply(lambda x: f'week_{x.isocalendar()[1]}_{x.isocalendar()[0]}')
 
 date_df = pd.DataFrame(date_df)
+# print(date_df)
 
 # Connect Python to SQL Server
 server = config.server

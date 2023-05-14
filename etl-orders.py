@@ -21,7 +21,7 @@ for x in temp_df:
     if x not in orders_df:
         orders_df.append(x)
 orders_df = pd.DataFrame(orders_df, columns=['order_id', 'order_item_id', 'order_customer_id', 'order_item_cardprod_id', 'market', 'order_city', 'order_country', 'order_date_dateorders', 'order_region', 'order_state', 'order_status'])
-print(orders_df)
+# print(orders_df)
 
 #Create orders table 
 cursor.execute("""CREATE TABLE dim_orders(
