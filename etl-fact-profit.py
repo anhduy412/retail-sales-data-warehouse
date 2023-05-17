@@ -15,7 +15,9 @@ cursor = conn.cursor()
 
 #Create  fact table
 cursor.execute("""
-    CREATE TABLE fact_(
+    CREATE TABLE fact_profit(
+        profit_key INT FOREIGN KEY REFERENCES dim_profit(profit_key),
+        order_key INT FOREIGN KEY REFERENCES dim_order(order_key),
         
     )"""
 )
@@ -23,7 +25,7 @@ conn.commit()
 
 # Insert DataFrame to Table and perform Join with other tables
 cursor.execute("""
-    INSERT INTO fact_()
+    INSERT INTO fact_profit()
     SELECT
         dim_._key,
         type,

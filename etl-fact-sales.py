@@ -24,7 +24,9 @@ cursor.execute("""
         department_key INT FOREIGN KEY REFERENCES dim_department(department_key),
         shipment_key INT FOREIGN KEY REFERENCES dim_shipment(shipment_key),
         order_item_quantity INT,
-        order_item_total FLOAT
+        order_item_total FLOAT,
+        sales FLOAT,
+        sales_per_customer FLOAT,
     )"""
 )
 conn.commit()
