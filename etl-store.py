@@ -23,7 +23,7 @@ for x in temp_df:
 store_df = pd.DataFrame(store_df, columns=['latitude', 'longitude'])
 # print(store_df)
 
-#Create store table 
+# Create store table
 cursor.execute("""CREATE TABLE dim_store(store_key INT IDENTITY(1,1) PRIMARY KEY, latitude FLOAT, longitude FLOAT)""")
 
 # Insert DataFrame to Table
