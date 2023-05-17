@@ -30,7 +30,8 @@ cursor.execute("""CREATE TABLE dim_profit(
     order_item_profit_ratio FLOAT,
     order_item_quantity INT,
     order_item_total FLOAT,
-    order_profit_per_order FLOAT
+    order_profit_per_order FLOAT,
+    sales_per_customer FLOAT,
     )"""
 )
 
@@ -42,15 +43,17 @@ for row in profit_df.itertuples():
             order_item_profit_ratio,
             order_item_quantity,
             order_item_total,
-            order_profit_per_order
+            order_profit_per_order,
+            sales_per_customer
             ) 
-            VALUES (?, ?, ?, ?, ?);
-        """, 
+            VALUES (?, ?, ?, ?, ?, ?);
+        """,
         row.order_item_product_price,
         row.order_item_profit_ratio,
         row.order_item_quantity,
         row.order_item_total,
-        row.order_profit_per_order
+        row.order_profit_per_order,
+        row.sales_per_customer
     )
 conn.commit()
 print('Data inserted to SQL Server successfully.')
