@@ -3,7 +3,7 @@ import pyodbc
 import config
 
 #Import dataframe
-store_df1 = config.store_df1
+df = config.df
 
 #Connect Python to SQL Server
 server = config.server
@@ -15,7 +15,7 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create a new dataframe to avoid inserting duplicate data
-temp_df = store_df1[['latitude', 'longitude']].values.tolist()
+temp_df = df[['latitude', 'longitude']].values.tolist()
 store_df = []
 for x in temp_df:
     if x not in store_df:
