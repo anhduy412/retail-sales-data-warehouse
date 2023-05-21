@@ -27,16 +27,15 @@ cursor.execute("""
         shipment_key INT FOREIGN KEY REFERENCES dim_shipment(shipment_key),
         profit_key INT FOREIGN KEY REFERENCES dim_profit(profit_key),
         order_item_quantity INT,
-        order_item_total FLOAT,
         sales FLOAT,
-        sales_per_customer FLOAT
+        order_item_total FLOAT
     )"""
 )
 conn.commit()
 
 # Insert DataFrame to Table and perform Join with other tables
 cursor.execute("""
-    INSERT INTO fact_sales(order_key, date_key, customer_key, product_key, category_key, store_key, department_key, discount_key, shipment_key, profit_key, order_item_quantity, order_item_total, sales, sales_per_customer)
+    INSERT INTO fact_sales(order_key, date_key, customer_key, product_key, category_key, store_key, department_key, discount_key, shipment_key, profit_key, order_item_quantity, sales, order_item_total)
     SELECT
         dim_orders.order_key,
         dim_date.date_key,
@@ -49,9 +48,8 @@ cursor.execute("""
         dim_shipment.shipment_key,
         dim_profit.profit_key,
         dcscd.order_item_quantity,
-        dcscd.order_item_total,
         dcscd.sales,
-        dcscd.sales_per_customer
+        dcscd.order_item_total
     FROM dcscd
     JOIN dim_orders ON dcscd.order_id = dim_orders.order_id
     JOIN dim_date ON dcscd.order_date_dateorders = dim_date.day
