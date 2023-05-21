@@ -3,7 +3,7 @@ import pyodbc
 import config
 
 #Import dataframe
-df = config.df
+profit_df1 = config.profit_df1
 
 #Connect Python to SQL Server
 server = config.server
@@ -15,7 +15,7 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create a new dataframe to avoid inserting duplicate data
-temp_df = df[['order_item_product_price', 'order_item_profit_ratio', 'order_item_quantity', 'order_item_total', 'order_profit_per_order', 'sales_per_customer']].values.tolist()
+temp_df = profit_df1[['order_item_product_price', 'order_item_profit_ratio', 'order_item_quantity', 'order_item_total', 'order_profit_per_order', 'sales_per_customer']].values.tolist()
 profit_df = []
 for x in temp_df:
     if x not in profit_df:

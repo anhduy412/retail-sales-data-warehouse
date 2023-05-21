@@ -12,10 +12,10 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Import dataframe
-df = config.df
+discount_df1 = config.discount_df1
 
 #Create a new dataframe to avoid inserting duplicate data
-temp_df = df[['order_item_discount', 'order_item_discount_rate', 'sales']].values.tolist()
+temp_df = discount_df1[['order_item_discount', 'order_item_discount_rate', 'sales']].values.tolist()
 discount_df = []
 for x in temp_df:
     if x not in discount_df:

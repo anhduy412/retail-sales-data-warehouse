@@ -12,10 +12,25 @@ df['order_date_dateorders'] = df['order_date_dateorders'].dt.strftime('%Y-%m-%d'
 # df.to_csv('DataCoSupplyChainDataset.csv', encoding='utf-8-sig', index=False)
 # print(df.dtypes)
 
+#create discount dataframe from the original dataframe
+discount_df1 = df[['order_item_discount', 'order_item_discount_rate', 'sales']].copy()
+#print(discount_df1)
+# discount_df1.to_csv('dcscd_discount.csv', index=False)
+
+#create store dataframe from the original dataframe
+store_df1 = df[['latitude', 'longitude']].copy()
+# print(store_df1)
+# store_df1.to_csv('dcscd_store.csv', index=False)
+
+#create profit dataframe from the original dataframe
+profit_df1 = df[['order_item_product_price', 'order_item_profit_ratio', 'order_item_quantity', 'order_item_total', 'order_profit_per_order', 'sales_per_customer']].copy()
+#print(profit_df1)
+# profit_df1.to_csv('dcscd_profit.csv', index=False)
+
 #Check the pyodbc drivers
 # print(pyodbc.drivers())
 
-#Some required variables for SQL connection
+# Some required variables for SQL connection
 database = 'retail_sales' #database name
 server = 'ROG' #server name
 username = 'ad' #username
