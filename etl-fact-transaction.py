@@ -14,16 +14,16 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create fact transaction table
-# cursor.execute("""
-#     CREATE TABLE fact_transaction(
-#         customer_key INT FOREIGN KEY REFERENCES dim_customer(customer_key),
-#         order_key INT FOREIGN KEY REFERENCES dim_orders(order_key),
-#         product_key INT FOREIGN KEY REFERENCES dim_product(product_key),
-#         discount_key INT FOREIGN KEY REFERENCES dim_discount(discount_key),
-#         type NVARCHAR(50),
-#     )"""
-# )
-# conn.commit()
+cursor.execute("""
+    CREATE TABLE fact_transaction(
+        customer_key INT FOREIGN KEY REFERENCES dim_customer(customer_key),
+        order_key INT FOREIGN KEY REFERENCES dim_orders(order_key),
+        product_key INT FOREIGN KEY REFERENCES dim_product(product_key),
+        discount_key INT FOREIGN KEY REFERENCES dim_discount(discount_key),
+        type NVARCHAR(50),
+    )"""
+)
+conn.commit()
 
 # Insert DataFrame to Table and perform Join with other tables
 cursor.execute("""
@@ -41,3 +41,6 @@ cursor.execute("""
     JOIN dim_discount ON dcscd.order_item_discount = dim_discount.order_item_discount AND dcscd.order_item_discount_rate = dim_discount.order_item_discount_rate
     """
 )
+conn.commit()
+print('Data inserted to SQL Server successfully.')
+cursor.close()
