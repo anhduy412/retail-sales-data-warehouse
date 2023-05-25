@@ -9,7 +9,7 @@ df['shipping_date_dateorders'] = pd.to_datetime(df['shipping_date_dateorders'])
 df['shipping_date_dateorders'] = df['shipping_date_dateorders'].dt.strftime('%d-%m-%Y')
 df['order_date_dateorders'] = pd.to_datetime(df['order_date_dateorders'])
 df['order_date_dateorders'] = df['order_date_dateorders'].dt.strftime('%d-%m-%Y')
-df.to_csv('data/dcscd.csv', encoding='utf-8-sig', index=False)
+# df.to_csv('data/dcscd.csv', encoding='utf-8-sig', index=False)
 # print(df.dtypes)
 
 # df['shipping_date_dateorders'] = pd.to_datetime(df['shipping_date_dateorders'], format='%d/%m/%Y')

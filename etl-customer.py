@@ -15,12 +15,12 @@ conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'
 cursor = conn.cursor()
 
 #Create a new dataframe to avoid inserting duplicate data
-temp_df = df[['customer_id', 'customer_fname', 'customer_lname', 'customer_segment', 'customer_street', 'customer_city', 'customer_state', 'customer_country', 'customer_zipcode']].values.tolist()
+temp_df = df[['customer_id', 'customer_fname', 'customer_lname', 'customer_segment', 'customer_street', 'customer_city', 'customer_state', 'customer_country', 'customer_zipcode', 'type']].values.tolist()
 customer_df = []
 for x in temp_df:
     if x not in customer_df:
         customer_df.append(x)
-customer_df = pd.DataFrame(customer_df, columns=['customer_id', 'customer_fname', 'customer_lname', 'customer_segment', 'customer_street', 'customer_city', 'customer_state', 'customer_country', 'customer_zipcode'])
+customer_df = pd.DataFrame(customer_df, columns=['customer_id', 'customer_fname', 'customer_lname', 'customer_segment', 'customer_street', 'customer_city', 'customer_state', 'customer_country', 'customer_zipcode', 'type'])
 # print(customer_df)
 
 #Create Customer Table 
@@ -34,14 +34,15 @@ cursor.execute("""CREATE TABLE dim_customer(
     customer_city NVARCHAR(50),
     customer_state NVARCHAR(50),
     customer_country NVARCHAR(50),
-    customer_zipcode NVARCHAR(50)
+    customer_zipcode NVARCHAR(50),
+    type NVARCHAR(50),
     )"""
 )
 
 # Insert DataFrame to Table
 for row in customer_df.itertuples():
     cursor.execute(
-        f"INSERT INTO [dbo].[dim_customer](customer_id, customer_fname, customer_lname, customer_segment, customer_street, customer_city, customer_state, customer_country, customer_zipcode)  VALUES ({row.customer_id}, '{row.customer_fname}', '{row.customer_lname}', '{row.customer_segment}','{row.customer_street}', '{row.customer_city}', '{row.customer_state}', '{row.customer_country}', '{row.customer_zipcode}');"
+        f"INSERT INTO [dbo].[dim_customer](customer_id, customer_fname, customer_lname, customer_segment, customer_street, customer_city, customer_state, customer_country, customer_zipcode, type)  VALUES ({row.customer_id}, '{row.customer_fname}', '{row.customer_lname}', '{row.customer_segment}','{row.customer_street}', '{row.customer_city}', '{row.customer_state}', '{row.customer_country}', '{row.customer_zipcode}', '{row.type}');"
     )
 conn.commit()
 print('Data inserted to SQL Server successfully.')
