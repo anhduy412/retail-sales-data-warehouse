@@ -21,8 +21,8 @@ df['order_date_dateorders'] = df['order_date_dateorders'].dt.strftime('%d-%m-%Y'
 # Some required variables for SQL connection
 database = 'retail_sales' #database name
 server = 'ROG' #server name
-username = 'ad' #username
-password = 'b4cB4jDA9BPI6Bwg' #password
+username = 'sa' #your username
+password = 'b4cB4jDA9BPI6Bwg' #your password
 conn = pyodbc.connect('DRIVER={ODBC Driver 17 for SQL Server}; SERVER='+server+'; DATABASE='+database+'; ENCRYPT = yes; Trusted_Connection = yes; UID='+username+'; PWD='+ password +'')
 
 # Some code to test connection
